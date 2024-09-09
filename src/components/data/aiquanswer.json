@@ -1,0 +1,58 @@
+[
+    {
+      "id": 1,
+      "question": "James Webb Space Telescope",
+      "answer": "The James Webb Space Telescope (JWST) is a large, space-based observatory launched in 2021. It is designed to study the universe in infrared wavelengths, allowing it to see the first galaxies formed after the Big Bang, star formation, and the atmospheres of distant planets."
+    },
+    {
+      "id": 2,
+      "question": "JWST",
+      "answer": "It stands for James Webb Space Telescope, a next-generation space telescope used to observe distant stars, galaxies, and planetary systems."
+    },
+    {
+      "id": 3,
+      "question": "JWST observe universe",
+      "answer": "JWST observes the universe primarily in infrared wavelengths, which allows it to detect objects too faint, distant, or cool to be observed in visible light."
+    },
+    {
+      "id": 4,
+      "question": "Primary mission of JWST",
+      "answer": "The primary mission of JWST is to study the formation of stars and galaxies, understand the evolution of planetary systems, and explore the atmospheres of exoplanets for signs of habitability."
+    },
+    {
+      "id": 5,
+      "question": "How far can JWST see",
+      "answer": "JWST can observe objects over 13.5 billion light-years away, allowing it to see the first galaxies that formed after the Big Bang."
+    },
+    {
+      "id": 6,
+      "question": "Galaxy",
+      "answer": "A galaxy is a large system of stars, gas, dust, and dark matter bound together by gravity, containing millions to billions of stars."
+    },
+    {
+      "id": 7,
+      "question": "Types of galaxies",
+      "answer": "The main types of galaxies are spiral, elliptical, and irregular. The Milky Way, our home galaxy, is a spiral galaxy."
+    },
+    {
+      "id": 8,
+      "question": "Star formation in galaxies",
+      "answer": "Stars form in galaxies within dense regions of gas and dust known as molecular clouds. The gravitational collapse of these clouds leads to star formation."
+    },
+    {
+      "id": 9,
+      "question": "Infrared observations by JWST",
+      "answer": "JWST's infrared observations allow scientists to see through cosmic dust clouds, revealing star-forming regions and early stages of galaxy formation."
+    },
+    {
+      "id": 10,
+      "question": "JWST and exoplanets",
+      "answer": "JWST will study the atmospheres of exoplanets, searching for signs of water, methane, carbon dioxide, and other indicators of habitability."
+    },
+    {
+      "id": 11,
+      "question": "Distant galaxies observed by JWST",
+      "answer": "JWST is capable of observing some of the most distant galaxies, formed only a few hundred million years after the Big Bang."
+    }
+  ]
+  

@@ -171,6 +171,7 @@ const StarMap = ({ starData }) => {
   type="text"
   placeholder="Search by magnitude"
   value={searchMagnitude}
+  className='text-white'
   onChange={(e) => setSearchMagnitude(e.target.value)}
   onKeyDown={(e) => {
     if (e.key === 'Enter') {
