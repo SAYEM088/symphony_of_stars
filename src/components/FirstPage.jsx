@@ -9,6 +9,7 @@ import { GiSoundWaves } from "react-icons/gi";
 import { PiPaintBrushFill } from "react-icons/pi";
 import { SiProbot } from "react-icons/si";
 import { GiAstronautHelmet } from "react-icons/gi";
+import Navbar from "./Navbar";
 
 const Model = ({ onInteract }) => {
   const { scene } = useGLTF('/jwst.glb');
@@ -118,57 +119,56 @@ const FirstPage = () => {
     }
   }, [aiMessage]);
   return (
+    <>
+    <Navbar></Navbar>
     <div className="relative w-full h-screen bg-center bg-cover" style={{ backgroundImage: "url('/bg.png')" }}>
-      <nav style={{ position: 'absolute', top: 0, width: '20%', background: 'rgba(0, 0, 0, 0.01)', color: 'white', padding: '10px', zIndex: 10 }}>
-        <h1>Star Map Navigation</h1>
-      </nav>
-
       {showInfo && (
         <div className="absolute w-1/3 left-1/3 top-2 opacity-70 rounded bg-gray-600 text-white p-4 text-center z-30">
-          <p className="typewriter">This is some information about the model. It will disappear in 2 minutes.</p>
+          <p className="typewriter">......This is James webb Space Telescope............</p>
         </div>
       )}
 
-<div className="absolute left-20 top-1/4 space-y-8 z-20 w-1/4">
-        <div className="relative bg-white bg-opacity-80 shadow-lg rounded-lg p-6 transform transition duration-700 ease-in-out hover:scale-110 hover:shadow-2xl overflow-hidden group">
-          <div className="absolute inset-0 bg-blue-200 opacity-0 group-hover:opacity-100 transform scale-0 group-hover:scale-150 transition-all duration-1000 ease-in-out rounded-full origin-bottom-left"></div>
+<div className="absolute left-15 top-1/4 space-y-8 z-20 w-1/4">
+        <div className="relative text-orange-100 bg-orange-900 bg-opacity-80 shadow-lg rounded-lg p-6 transform transition duration-700 ease-in-out hover:scale-110 hover:shadow-2xl overflow-hidden group">
+          <div className="absolute inset-0 bg-orange-900 opacity-0 group-hover:opacity-100 transform scale-0 group-hover:scale-150 transition-all duration-1000 ease-in-out rounded-full origin-bottom-left"></div>
           <div className="relative flex items-center space-x-2 z-10">
-            <LuSearch className="text-3xl" />
-            <h2 className="text-lg font-semibold">Search Stars</h2>
+            <LuSearch className="text-3xl text-orange-50" />
+            <h2 className="text-lg font-semibold text-orange-100">Search Stars</h2>
           </div>
-          <p className="relative z-10">Here you can search The Stars Glaxiy </p>
+          <p className="relative z-10">Click for searching Stars & Galaxy </p>
         </div>
 
-        <div className="relative bg-white bg-opacity-80 shadow-lg rounded-lg p-6 transform transition duration-700 ease-in-out hover:scale-110 hover:shadow-2xl overflow-hidden group">
-          <div className="absolute inset-0 bg-blue-200 opacity-0 group-hover:opacity-100 transform scale-0 group-hover:scale-150 transition-all duration-1000 ease-in-out rounded-full origin-bottom-left"></div>
+        <div className="relative text-orange-100 bg-orange-900 bg-opacity-80 shadow-lg rounded-lg p-6 transform transition duration-700 ease-in-out hover:scale-110 hover:shadow-2xl overflow-hidden group">
+          <div className="absolute inset-0 bg-orange-900 opacity-0 group-hover:opacity-100 transform scale-0 group-hover:scale-150 transition-all duration-1000 ease-in-out rounded-full origin-bottom-left"></div>
           <div className="relative flex items-center space-x-2 z-10">
 
             <GiSoundWaves className="text-3xl" />
-            <h2 className="text-lg font-semibold">Play Quiz Game</h2>
+            <h2 className="text-lg font-semibold">Music Game</h2>
           </div>
           <p className="relative z-10">here you can play and learn with the sound game.</p>
         </div>
 
-        <div className="relative bg-white bg-opacity-80 shadow-lg rounded-lg p-6 transform transition duration-700 ease-in-out hover:scale-110 hover:shadow-2xl overflow-hidden group">
-          <div className="absolute inset-0 bg-blue-200 opacity-0 group-hover:opacity-100 transform scale-0 group-hover:scale-150 transition-all duration-1000 ease-in-out rounded-full origin-bottom-left"></div>
+        <div className="relative text-orange-100 bg-orange-900 bg-opacity-80 shadow-lg rounded-lg p-6 transform transition duration-700 ease-in-out hover:scale-110 hover:shadow-2xl overflow-hidden group">
+          <div className="absolute inset-0 bg-orange-900 opacity-0group-hover:opacity-100 transform scale-0 group-hover:scale-150 transition-all duration-1000 ease-in-out rounded-full origin-bottom-left"></div>
           <div className="relative flex items-center space-x-2 z-10">
           <PiPaintBrushFill className="text-3xl"/>
             <h2 className="text-lg font-semibold">Draw Stars</h2>
           </div>
           <p className="relative z-10">here. you can draw the stars with images</p>
         </div>
+      
       </div>
 
-      <div className="absolute right-20 top-1/4 space-y-8 z-20 w-1/4 h-1/2"> 
-        <div className="relative flex items-end bg-blue-500 space-x-2 py-2 rounded ps-10">
+      <div className="absolute right-10 top-1/4  space-y-8 z-20 w-1/4 h-1/2"> 
+        <div className="relative flex items-end bg-cyan-600 space-x-2 py-2 rounded ps-10">
           <GiAstronautHelmet className="text-3xl ms-5"/>
           <h2 className="text-lg font-semibold ps-2">Mr. Sam</h2>
           <CiStar className="text-3xl ms-4"/> <span className="text-xl">500</span>
         </div>
-        <div className="relative bg-white bg-opacity-80 shadow-lg rounded-lg p-6 z-30">
+        <div className="relative bg-cyan-600 bg-opacity-80 shadow-lg rounded-lg p-6 z-30">
           <div className="relative flex items-center space-x-2">
             <SiProbot className="text-3xl"/>
-            <h2 className="text-lg font-semibold">AI Chatbot</h2>
+            <h2 className="text-lg font-semibold">AI Chatbot</h2> 
           </div>
           <div className="chat-box overflow-y-auto h-60 border-b-2 mb-4"> 
             {chatMessages.map((message, index) => (
@@ -234,6 +234,7 @@ const FirstPage = () => {
         }
       `}</style>
     </div>
+    </>
   );
 };
 

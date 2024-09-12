@@ -4,7 +4,7 @@ import starDataJson from "@/components/data/starsData.json";
 import Link from 'next/link'; // Import Link
 
 const Page = () => {
-  const BackgroundMusic = "/m2.wav";
+  const BackgroundMusic = "/southRing.mp4";
   const [magnitude, setMagnitude] = useState("");
   const [starData, setStarData] = useState(null);
   const [svgImage, setSvgImage] = useState("");
@@ -26,11 +26,11 @@ const Page = () => {
 
     if (data) {
       if (data.imgSVG === 1) {
-        setSvgImage("/p1.svg");
+        setSvgImage("/southring.png");
       } else if (data.imgSVG === 2) {
-        setSvgImage("/p2.svg");
+        setSvgImage("/southring.png");
       } else if (data.imgSVG === 3) {
-        setSvgImage("/p3.svg");
+        setSvgImage("/southring.png");
       }
     }
   }, [magnitude]);

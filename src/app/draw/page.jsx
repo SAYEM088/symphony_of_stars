@@ -1,25 +1,26 @@
-// src/app/draw/page.jsx
-'use client'; // Required for using hooks in the app directory
-
+"use client"
+import Navbar from '@/components/Navbar';
 import React, { useRef, useState, useEffect } from 'react';
-import { FaUndo, FaRedo, FaEraser, FaPaintBrush, FaSave } from 'react-icons/fa'; // Importing React icons
-
+import { FaUndo, FaRedo, FaEraser, FaPaintBrush, FaSave, FaPalette } from 'react-icons/fa';
 
 const DrawingBoard = () => {
-    const backgroundImage = '/gb.png'
-    const saveSound = './m2.wav'
-    const saveGif1 = '/nasagif.gif'
-    const saveGif2 = '/celebration.gif'
     const canvasRef = useRef(null);
     const [isDrawing, setIsDrawing] = useState(false);
     const [history, setHistory] = useState([]);
     const [redoStack, setRedoStack] = useState([]);
     const [isEraserActive, setIsEraserActive] = useState(false);
     const [showSaveGif, setShowSaveGif] = useState(false);
+    const [currentColor, setCurrentColor] = useState('#000000'); // Default black color
+    const [brushSize, setBrushSize] = useState(5); // Default brush size
+    const [showColorPalette, setShowColorPalette] = useState(false);
+
+    const colors = ['#FF0000', '#00FF00', '#0000FF', '#FFFF00', '#FF00FF', '#00FFFF', '#000000'];
 
     const startDrawing = (e) => {
         setIsDrawing(true);
         const ctx = canvasRef.current.getContext('2d');
+        ctx.strokeStyle = currentColor; 
+        ctx.lineWidth = brushSize; 
         ctx.beginPath();
         ctx.moveTo(e.nativeEvent.offsetX, e.nativeEvent.offsetY);
     };
@@ -39,40 +40,19 @@ const DrawingBoard = () => {
     const saveHistory = () => {
         const dataURL = canvasRef.current.toDataURL();
         setHistory((prevHistory) => [...prevHistory, dataURL]);
-        setRedoStack([]); // Clear redo stack on new action
+        setRedoStack([]);
     };
 
     const handleSave = () => {
         const dataURL = canvasRef.current.toDataURL();
-        // Simulate saving to local directory (in a real app, you could save to a server or use a download link)
         const link = document.createElement('a');
         link.href = dataURL;
         link.download = 'drawing.png';
         link.click();
-
-        // Trigger GIF and sound
         setShowSaveGif(true);
-        const audio = new Audio(saveSound);
+        const audio = new Audio('./m2.wav');
         audio.play();
-
-        // Hide the GIF after 3 seconds
-        setTimeout(() => {
-            setShowSaveGif(false);
-        }, 3000);
-
-        console.log('Drawing saved to local directory.');
-    };
-
-    const handleLoad = () => {
-        const savedDrawing = localStorage.getItem('drawing');
-        if (savedDrawing) {
-            const ctx = canvasRef.current.getContext('2d');
-            const img = new Image();
-            img.src = savedDrawing;
-            img.onload = () => {
-                ctx.drawImage(img, 0, 0);
-            };
-        }
+        setTimeout(() => setShowSaveGif(false), 3000);
     };
 
     const handleUndo = () => {
@@ -95,7 +75,7 @@ const DrawingBoard = () => {
 
     const redraw = (history) => {
         const ctx = canvasRef.current.getContext('2d');
-        ctx.clearRect(0, 0, canvasRef.current.width, canvasRef.current.height); // Clear canvas
+        ctx.clearRect(0, 0, canvasRef.current.width, canvasRef.current.height);
         history.forEach((dataURL) => {
             const img = new Image();
             img.src = dataURL;
@@ -107,9 +87,9 @@ const DrawingBoard = () => {
 
     const handleEraser = () => {
         const ctx = canvasRef.current.getContext('2d');
-        ctx.clearRect(0, 0, canvasRef.current.width, canvasRef.current.height); // Clear entire canvas
-        setHistory([]); // Clear history
-        setRedoStack([]); // Clear redo stack
+        ctx.clearRect(0, 0, canvasRef.current.width, canvasRef.current.height);
+        setHistory([]);
+        setRedoStack([]);
         setIsEraserActive(true);
     };
 
@@ -117,107 +97,116 @@ const DrawingBoard = () => {
         setIsEraserActive(false);
     };
 
+    const toggleColorPalette = () => {
+        setShowColorPalette(!showColorPalette);
+    };
+
+    const handleColorChange = (color) => {
+        setCurrentColor(color);
+        setShowColorPalette(false);
+    };
+
     useEffect(() => {
         const ctx = canvasRef.current.getContext('2d');
-        ctx.lineWidth = 5;
-        ctx.strokeStyle = 'black';
-        handleLoad(); // Load the saved drawing when the component mounts
-    }, []);
+        ctx.lineWidth = brushSize;
+        ctx.strokeStyle = currentColor;
+    }, [brushSize, currentColor]);
 
     return (
-        <div
-            className="flex"
-            style={{
-                backgroundImage: `url(${backgroundImage})`,
-                backgroundSize: 'cover',
-                height: '100vh'
-            }}
-        >
-            {/* Left Column for Image */}
-            <div className="w-1/2 p-4 border-r">
-                <img 
-                    src="https://via.placeholder.com/400" 
-                    alt="Placeholder" 
-                    className="w-full h-auto" 
-                />
-            </div>
+        <>
+            <Navbar />
+            <div
+                className="flex"
+                style={{
+                    height: '100vh',
+                    backgroundImage: 'url(/backgroundImage.jpg)',
+                    backgroundSize: 'cover',
+                }}
+            >
+                <div className="w-1/2 p-4 border-r">
+                    <img src="/pilar.png" alt="Placeholder" className="w-full h-2/3 rounded-lg" />
+                    <div className=" mt-4">
+                       <h1 className='text-3xl text-blue-600 font-bold text-center'>Image info</h1>
+                       <div className="text-start ps-24 pt-5  text-xl">
+                       <p><span className='text-cyan-700 font-bold'>Name : </span>M16, Eagle Nebula, NGC 6611</p>
+                       <p><span className='text-cyan-700 font-bold'>Constellation : </span>:	Serpens</p>
 
-            {/* Right Column for Drawing Board */}
-            <div className="relative w-1/2 p-4">
-                <canvas
-                    ref={canvasRef}
-                    width={window.innerWidth / 2.1}
-                    height={window.innerHeight / 1.059}
-                    style={{
-                        border: '1px solid black',
-                        cursor: isEraserActive ? 'crosshair' : 'auto',
-                    }}
-                    onMouseDown={startDrawing}
-                    onMouseMove={draw}
-                    onMouseUp={stopDrawing}
-                    onMouseLeave={stopDrawing}
-                />
-                
-                {/* Vertical Icon Panel */}
-                <div className="absolute right-0 top-1/2 transform -translate-y-1/2 flex flex-col space-y-2">
-                    <button
-                        className="bg-blue-500 text-white p-2 rounded hover:bg-blue-600 active:bg-blue-700 transition duration-200"
-                        onClick={handleSave}
-                        title="Save Drawing"
-                    >
-                        <FaSave />
-                    </button>
-                    <button
-                        className="bg-green-500 text-white p-2 rounded hover:bg-green-600 active:bg-green-700 transition duration-200"
-                        onClick={handleUndo}
-                        title="Undo"
-                    >
-                        <FaUndo />
-                    </button>
-                    <button
-                        className="bg-yellow-500 text-white p-2 rounded hover:bg-yellow-600 active:bg-yellow-700 transition duration-200"
-                        onClick={handleRedo}
-                        title="Redo"
-                    >
-                        <FaRedo />
-                    </button>
-                    <button
-                        className="bg-red-500 text-white p-2 rounded hover:bg-red-600 active:bg-red-700 transition duration-200"
-                        onClick={handleEraser}
-                        title="Clear Board"
-                    >
-                        <FaEraser />
-                    </button>
-                    <button
-                        className="bg-gray-500 text-white p-2 rounded hover:bg-gray-600 active:bg-gray-700 transition duration-200"
-                        onClick={handleBrush}
-                        title="Brush"
-                    >
-                        <FaPaintBrush />
-                    </button>
+                       <p><span className='text-cyan-700 font-bold'>Color Info : </span>These images are a composite of separate exposures acquired by the James Webb Space Telescope using the NIRCam and MIRI instruments. Several filters were used to sample different infrared wavelength ranges. The color results from assigning different hues (colors) to each monochromatic (grayscale) image associated with an individual filter. In this case, the assigned colors are:    Purple: F090W, Blue: F187N and F770W, Cyan: F200W, Green: F1130W; Yellow: F335M, Orange: F444W, Red: F470N and F1500W </p>
+                      
+                       </div>
+                      
+                    </div>
                 </div>
 
-                {/* Save GIF and Music */}
-                {showSaveGif && (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-70">
-        {/* Background GIF (saveGif1) */}
-        <img
-            src={saveGif1}
-            alt="Saving Background"
-            className="absolute inset-0 w-full h-full object-cover z-40" 
-            style={{ pointerEvents: 'none' }} // Ensure that background gif is not interactive
-        />
-        {/* Foreground GIF (saveGif2) */}
-        <img
-            src={saveGif2}
-            alt="Saving Foreground"
-            className="relative w-1/2 h-1/2 z-50" // Foreground centered gif
-        />
-    </div>
-)}
+                <div className="relative w-1/2 p-4">
+                    <canvas
+                        ref={canvasRef}
+                        width={window.innerWidth / 2.1}
+                        height={window.innerHeight / 1.059}
+                        style={{
+                            border: '6px solid #338c97',
+                            boxShadow: '0 0 15px rgba(0, 0, 0, 0.3)',
+                            borderRadius: '12px',
+                            cursor: isEraserActive ? 'crosshair' : 'auto',
+                        }}
+                        onMouseDown={startDrawing}
+                        onMouseMove={draw}
+                        onMouseUp={stopDrawing}
+                        onMouseLeave={stopDrawing}
+                    />
 
+                    <div className="absolute right-0 top-1/2 transform -translate-y-1/2 flex flex-col space-y-2">
+                        <button className="bg-blue-500 text-white p-2 rounded hover:bg-blue-600" onClick={handleSave}>
+                            <FaSave />
+                        </button>
+                        <button className="bg-green-500 text-white p-2 rounded hover:bg-green-600" onClick={handleUndo}>
+                            <FaUndo />
+                        </button>
+                        <button className="bg-yellow-500 text-white p-2 rounded hover:bg-yellow-600" onClick={handleRedo}>
+                            <FaRedo />
+                        </button>
+                        <button className="bg-red-500 text-white p-2 rounded hover:bg-red-600" onClick={handleEraser}>
+                            <FaEraser />
+                        </button>
+                        <button className="bg-gray-500 text-white p-2 rounded hover:bg-gray-600" onClick={handleBrush}>
+                            <FaPaintBrush />
+                        </button>
+                        <button className="bg-purple-500 text-white p-2 rounded hover:bg-purple-600" onClick={toggleColorPalette}>
+                            <FaPalette />
+                        </button>
+
+                        {showColorPalette && (
+                            <div className="flex space-x-2 p-2 bg-white shadow-md rounded-md">
+                                {colors.map((color) => (
+                                    <div
+                                        key={color}
+                                        onClick={() => handleColorChange(color)}
+                                        className="w-6 h-6 cursor-pointer rounded-full"
+                                        style={{ backgroundColor: color }}
+                                    ></div>
+                                ))}
+                            </div>
+                        )}
+
+                        <input
+                            type="range"
+                            min="1"
+                            max="20"
+                            value={brushSize}
+                            onChange={(e) => setBrushSize(e.target.value)}
+                            className="mt-2"
+                        />
+                    </div>
+
+                    {showSaveGif && (
+                        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-70">
+                            <img src="/nasagif.gif" alt="Saving Background" className="absolute inset-0 w-full h-full object-cover z-40" />
+                            <img src="/celebration.gif" alt="Saving Foreground" className="relative w-1/2 h-1/2 z-50" />
+                        </div>
+                    )}
+                </div>
             </div>
-        </div>
+        </>
     );
 };
 

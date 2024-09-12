@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useRef, useState } from 'react';
 import * as d3 from 'd3';
-
+import { IoSearchCircleSharp } from "react-icons/io5";
 const StarMap = ({ starData }) => {
   const svgRef = useRef(null);
   const [searchMagnitude, setSearchMagnitude] = useState('');
@@ -164,12 +164,13 @@ const StarMap = ({ starData }) => {
       zoomToStar(ra, dec, width, height, window.zoomBehavior);
     }
   };
+  
 
   return (
     <div>
      <input
   type="text"
-  placeholder="Search by magnitude"
+  placeholder="Search "
   value={searchMagnitude}
   className='text-white'
   onChange={(e) => setSearchMagnitude(e.target.value)}
@@ -184,7 +185,7 @@ const StarMap = ({ starData }) => {
   style={{
     position: 'fixed',
     top: '20px',
-    right: '10px',
+    right: '45px',
     padding: '10px',
     zIndex: 10,
     backgroundColor: '#000000',
@@ -192,6 +193,15 @@ const StarMap = ({ starData }) => {
     borderRadius: '5px',
   }}
 />
+<IoSearchCircleSharp className='text-white' style={{
+    position: 'fixed',
+    top: '28px',
+    right: '10px',
+    padding: '15px',
+    zIndex: 10,
+    border: '1px solid #1388A2',
+    borderRadius: '5px',
+  }} />
       <svg ref={svgRef}></svg>
     </div>
   );
