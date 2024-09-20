@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { FaHome, FaStar, FaPuzzlePiece, FaMusic, FaPalette } from 'react-icons/fa';
 import { BsSoundwave } from "react-icons/bs";
+
 const Navbar = () => {
     const [expanded, setExpanded] = useState(false);
 
@@ -8,82 +9,75 @@ const Navbar = () => {
         setExpanded(true);
         setTimeout(() => {
             setExpanded(false);
-        }, 5000); // 5 seconds delay before collapsing
+        }, 9000); 
     };
 
     return (
-        <nav className="fixed top-0 left-0 bg-transparent text-white p-6 z-10">
-            <ul className="space-y-3">
-                {/* Home Icon */}
+        <nav className="fixed top-0 left-0 bg-transparent text-white p-5 z-10">
+            <ul className="flex space-x-1">
                 <li onMouseEnter={handleMouseEnter}>
-                    <a href="/starspace" className="group flex items-center py-2 px-4">
-                        <div className="w-10 h-10 bg-gray-700 rounded-full flex items-center justify-center hover:bg-gray-600 transition duration-300 shadow-md">
+                    <a href="/" className="group flex flex-col items-center py-2 px-2">
+                        <div className="w-10 h-10 bg-gray-700 rounded-full flex items-center justify-center hover:bg-gray-600 transition duration-500 shadow-md">
                             <FaHome className="text-white" />
                         </div>
-                        <span className={`ml-4 ${expanded ? 'opacity-100' : 'opacity-0'} transition-opacity duration-300`}>
-                            Home
+                        <span className={`mt-2 ${expanded ? 'opacity-100' : 'opacity-0'} transition-opacity duration-500`}>
+                            Home 
                         </span>
                     </a>
                 </li>
 
-                {/* Expanded Menu Items */}
                 {expanded && (
                     <>
-                        {/* Search Star */}
                         <li>
-                            <a href="/" className="group flex items-center py-2 px-4">
-                                <div className="w-10 h-10 bg-gray-700 rounded-full flex items-center justify-center hover:bg-gray-600 transition duration-300 shadow-md">
+                            <a href="/searchstars " className="group flex flex-col items-center py-2 px-1">
+                                <div className="w-10 h-10 bg-gray-700 rounded-full flex items-center justify-center hover:bg-gray-600 transition duration-500 shadow-md">
                                     <FaStar className="text-white" />
                                 </div>
-                                <span className="ml-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                                    Search Star
+                                <span className="mt-2 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                                    Search Star 
                                 </span>
                             </a>
                         </li>
 
-                        {/* Image Match */}
                         <li>
-                            <a href="/imagematch" className="group flex items-center py-2 px-4">
-                                <div className="w-10 h-10 bg-gray-700 rounded-full flex items-center justify-center hover:bg-gray-600 transition duration-300 shadow-md">
+                            <a href="/imagematch" className="group flex flex-col items-center py-2 px-1">
+                                <div className="w-10 h-10 bg-gray-700 rounded-full flex items-center justify-center hover:bg-gray-600 transition duration-500 shadow-md">
                                     <FaPuzzlePiece className="text-white" />
                                 </div>
-                                <span className="ml-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                                    Image Match
+                                <span className="mt-2 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                                    Image Match 
                                 </span>
                             </a>
                         </li>
 
-                        {/* Sound Match */}
                         <li>
-                            <a href="/soundmatch" className="group flex items-center py-2 px-4">
-                                <div className="w-10 h-10 bg-gray-700 rounded-full flex items-center justify-center hover:bg-gray-600 transition duration-300 shadow-md">
+                            <a href="/soundmatch" className="group flex flex-col items-center py-2 px-1">
+                                <div className="w-10 h-10 bg-gray-700 rounded-full flex items-center justify-center hover:bg-gray-600 transition duration-500 shadow-md">
                                     <FaMusic className="text-white" />
                                 </div>
-                                <span className="ml-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                                    Sound Match
+                                <span className="mt-2 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                                    Sound Match 
                                 </span>
                             </a>
                         </li>
 
-                        {/* Sound Compose */}
                         <li>
-                            <a href="/soundcompose" className="group flex items-center py-2 px-4">
-                                <div className="w-10 h-10 bg-gray-700 rounded-full flex items-center justify-center hover:bg-gray-600 transition duration-300 shadow-md">
+                            <a href="/soundcompose" className="group flex flex-col items-center py-2 px-1">
+                                <div className="w-10 h-10 bg-gray-700 rounded-full flex items-center justify-center hover:bg-gray-600 transition duration-500 shadow-md">
                                     <BsSoundwave className="text-white" />
                                 </div>
-                                <span className="ml-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                                    Sound Compose
+                                <span className="mt-2 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                                    Sound Compose 
                                 </span>
                             </a>
                         </li>
 
-                        {/* Draw */}
                         <li>
-                            <a href="/draw" className="group flex items-center py-2 px-4">
-                                <div className="w-10 h-10 bg-gray-700 rounded-full flex items-center justify-center hover:bg-gray-600 transition duration-300 shadow-md">
+                            <a href="/draw" className="group flex flex-col items-center py-2 px-1">
+                                <div className="w-10 h-10 bg-gray-700 rounded-full flex items-center justify-center hover:bg-gray-600 transition duration-500 shadow-md">
                                     <FaPalette className="text-white" />
                                 </div>
-                                <span className="ml-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                                <span className="mt-2 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
                                     Draw
                                 </span>
                             </a>

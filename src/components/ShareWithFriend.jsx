@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import emailjs from 'emailjs-com'; // EmailJS for sending emails
+import emailjs from 'emailjs-com'; 
 import Navbar from './Navbar';
 
 const ShareWithFriend = ({ composition, onClose }) => {
@@ -13,10 +13,10 @@ const ShareWithFriend = ({ composition, onClose }) => {
         };
 
         emailjs.send(
-            'service_6rqp5ln',   // Your EmailJS service ID
-            'template_n8788bb',   // Your EmailJS template ID
+            'service_6rqp5ln',  
+            'template_n8788bb',   
             templateParams,
-            'VJj5P0rOsntq8kNtD'  // Replace with your actual EmailJS public key
+            'VJj5P0rOsntq8kNtD'  
         )
         .then((response) => {
             console.log('Email sent successfully', response.status, response.text);
