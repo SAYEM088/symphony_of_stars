@@ -1,4 +1,4 @@
-import { FaFacebook, FaTwitter, FaYoutube } from 'react-icons/fa';
+
 import { IoMdStarHalf } from "react-icons/io";
 import { IoShareSharp  } from "react-icons/io5";
 import { FaArrowUpWideShort } from "react-icons/fa6";
@@ -12,15 +12,16 @@ const ProfileCard = () => {
         <div className="col-span-3 w-full h-full ms-2 mt-4 flex flex-col items-center justify-center text-white">
           <div className="rounded overflow-hidden">
             <img
-              src="https://via.placeholder.com/150"
+              src="/formal.jpg"
               alt="profile"
-              className="w-full h-full object-cover"
+              style={{height:"180px",width:"150px"}}
+              className="object-cover"
             />
           </div>
-          <p className="text-l mt-1 mb-2">SAM</p>
+          <p className="text-red-900 mt-1 mb-2"> Mr SAM</p>
         </div>
 
-        <div className="col-span-4 p-6 flex flex-col justify-between">
+        <div className="col-span-4 p-2 flex flex-col justify-between">
           <h2 className="text-2xl font-semibold text-white mb-4">Jamesians</h2>
 
           <div className="flex">
@@ -43,16 +44,8 @@ const ProfileCard = () => {
             </div>
           </div>
 
-          <div className="mt-6 flex items-center justify-center space-x-4">
-            <a href="#" className="text-blue-600 hover:text-blue-800">
-              <FaFacebook size={24} />
-            </a>
-            <a href="#" className="text-blue-400 hover:text-blue-600">
-              <FaTwitter size={24} />
-            </a>
-            <a href="#" className="text-red-500 hover:text-red-700">
-              <FaYoutube size={24} />
-            </a>
+          <div className="mt-6 flex items-center justify-center ">
+            <h1>Total composition: </h1>
           </div>
         </div>
       </div>

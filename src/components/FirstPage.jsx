@@ -128,7 +128,7 @@ const FirstPage = () => {
           </div>
         )}
 
-        <div className="absolute left-15 top-1/4 space-y-8 z-20 w-1/4">
+        <div className=" absolute left-15 top-28  z-20 ">
           <ShareInSocial></ShareInSocial>
         </div>
         <div className="absolute right-2 top-20 z-20 flex flex-col gap-2">
@@ -136,7 +136,7 @@ const FirstPage = () => {
             <ProfileCard />
           </div>
           <div className="bg-cyan-600  bg-opacity-80 shadow-lg rounded-lg p-1 ">
-            <div className="flex items-center space-x-2">
+            <div className="flex items-center ms-3 space-x-2">
               <SiProbot className="text-3xl" />
               <h2 className="text-lg font-semibold">AI Chatbot</h2>
             </div>
