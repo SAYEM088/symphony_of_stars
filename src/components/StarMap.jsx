@@ -1,7 +1,8 @@
 "use client";
 import { useEffect, useRef, useState } from 'react';
 import * as d3 from 'd3';
-import { IoSearchCircleSharp } from "react-icons/io5";
+import { FaSearch } from "react-icons/fa";
+import Navbar from './Navbar';
 
 const StarMap = ({ starData }) => {
   const svgRef = useRef(null);
@@ -142,38 +143,40 @@ const StarMap = ({ starData }) => {
 
   return (
     <div>
+      <Navbar/>
+      
       <input
         type="text"
         placeholder="Search Magnitude"
         value={searchMagnitude}
-        className='text-white'
-        onChange={(e) => setSearchMagnitude(e.target.value)}
-        onKeyDown={(e) => {
-          if (e.key === 'Enter') {
-            handleSearch();
-            setSearchMagnitude(''); // Clear the input field
-          }
-        }}
         style={{
           position: 'fixed',
           top: '20px',
           right: '45px',
-          padding: '10px',
           zIndex: 10,
-          backgroundColor: '#000000',
-          border: '1px solid #1388A2',
-          borderRadius: '5px',
+        }}
+        className=" px-4 py-2 border border-blue-500 rounded-full focus:outline-none focus:ring-2 focus:ring-blue-500"
+        onChange={(e) => setSearchMagnitude(e.target.value)}
+        onKeyDown={(e) => {
+          if (e.key === 'Enter') {
+            handleSearch();
+            setSearchMagnitude('');
+          }
         }}
       />
-      <IoSearchCircleSharp className='text-white' style={{
+      <button
+      style={{
         position: 'fixed',
-        top: '28px',
-        right: '10px',
-        padding: '15px',
+        top: '21px',
+        right: '45px',
         zIndex: 10,
-        border: '1px solid #1388A2',
-        borderRadius: '5px',
-      }} />
+      }}
+        className="px-4 py-2 text-2xl bg-blue-500 rounded-r-full flex items-center justify-center"
+        onClick={handleSearch}
+      >
+        <FaSearch className="text-white" />
+      </button>
+    
       <svg ref={svgRef}></svg>
     </div>
   );
