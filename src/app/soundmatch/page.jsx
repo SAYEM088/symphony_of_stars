@@ -1,16 +1,15 @@
 "use client"
 import Navbar from '@/components/Navbar';
 import React, { useState } from 'react';
-import { FaStop, FaPause, FaRedo } from 'react-icons/fa'; // Import icons
+import { FaStop, FaPause, FaRedo } from 'react-icons/fa'; 
 
 const SoundMatchPage = () => {
     const [progress, setProgress] = useState(0);
     const [quizAnswer, setQuizAnswer] = useState('');
     const [showSurprise, setShowSurprise] = useState(false);
-    const correctAnswer = "Option 1"; // Correct answer
+    const correctAnswer = "Option 1"; 
 
     const handleProgress = () => {
-        // Function to simulate progress (replace with your logic)
         setProgress(progress + 10);
     };
 
@@ -24,7 +23,7 @@ const backgroundImage ='/bg2.png'
         <><Navbar></Navbar>
         <div style={{backgroundImage: `url(${backgroundImage})`,
                 backgroundSize: 'cover',}} className="sound-match-page p-6 bg-gray-100 min-h-screen flex flex-col items-center space-y-8">
-            {/* Progress and controls card */}
+            <div className="text-white text-2xl">Quiz</div>
             <div className="card bg-white shadow-md rounded-lg p-5 w-full max-w-md">
                 <h3 className="text-lg font-bold mb-2">Symphony of A star</h3>
                 <div className="w-full bg-gray-200 rounded-full h-2.5 mb-4">
@@ -45,8 +44,6 @@ const backgroundImage ='/bg2.png'
                     </button>
                 </div>
             </div>
-
-            {/* Quiz card */}
             <div className="card bg-violet-200 shadow-md rounded-lg p-4 w-full max-w-md">
                 <h3 className="text-lg font-bold mb-4">Q: Which Name is appropiacte for this Symphony?</h3>
                 <div className="options space-y-2 mb-4">
@@ -97,8 +94,6 @@ const backgroundImage ='/bg2.png'
                 >
                     Submit
                 </button>
-
-                {/* Surprise GIF and music */}
                 {showSurprise && (
                     <div className="surprise mt-4">
                         <img

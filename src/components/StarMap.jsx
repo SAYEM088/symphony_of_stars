@@ -6,7 +6,7 @@ import Navbar from './Navbar';
 
 const StarMap = ({ starData }) => {
   const svgRef = useRef(null);
-  const [searchMagnitude, setSearchMagnitude] = useState('');
+  const [searchHIP, setSearchHIP] = useState('');
   let tooltipTimeout = null;
 
   const zoomToStar = (ra, dec, width, height, zoom) => {
@@ -68,20 +68,6 @@ const StarMap = ({ starData }) => {
       .style("display", "none")
       .style("pointer-events", "none");
 
-    const calculateDistance = (ra1, dec1, ra2, dec2) => {
-      const rad = (deg) => (deg * Math.PI) / 180;
-      const ra1Rad = rad(ra1), ra2Rad = rad(ra2);
-      const dec1Rad = rad(dec1), dec2Rad = rad(dec2);
-
-      const sinDecDiff = Math.sin((dec2Rad - dec1Rad) / 2);
-      const sinRaDiff = Math.sin((ra2Rad - ra1Rad) / 2);
-
-      const a = sinDecDiff * sinDecDiff + Math.cos(dec1Rad) * Math.cos(dec2Rad) * sinRaDiff * sinRaDiff;
-      const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-
-      return (c * 180 / Math.PI).toFixed(2);
-    };
-
     starGroup.selectAll('circle.star')
       .data(starData)
       .enter()
@@ -93,15 +79,12 @@ const StarMap = ({ starData }) => {
       .attr('fill', d => getStarColor(parseFloat(d.st_bmv))) 
       .attr('stroke', d => `rgba(${Math.random() * 205},${Math.random() * 255},${Math.random() * 255},0.2)`)
       .on('mouseover', (event, d) => {
-        const distance = calculateDistance(0, 0, d.ra, d.dec);
-
         clearTimeout(tooltipTimeout);
 
         tooltip.style("display", "block")
           .html(`
             <strong>Star Name:</strong> ${d.star_name}<br>
-            <strong>Magnitude:</strong> ${d.st_vmag}<br>
-            <strong>Distance from Sun:</strong> ${distance}°<br>
+            <strong>HIP Name:</strong> ${d.hip_name}<br>
             <strong>Distance (ly):</strong> ${d.st_dist} light years
           `);
       })
@@ -111,7 +94,7 @@ const StarMap = ({ starData }) => {
         }, 5000);
       })
       .on('click', (event, d) => {
-        window.location.href = `/star/${d.loc_rowid}`;
+        window.location.href = `/star/${d.hip_name}`;
       });
 
     const zoomBehavior = d3.zoom()
@@ -131,7 +114,7 @@ const StarMap = ({ starData }) => {
   }, [starData]);
 
   const handleSearch = () => {
-    const star = starData.find(star => parseFloat(star.st_vmag) === parseFloat(searchMagnitude));
+    const star = starData.find(star => star.hip_name === searchHIP);
     if (star && window.zoomBehavior) {
       const ra = parseFloat(star.ra);
       const dec = parseFloat(star.dec);
@@ -147,8 +130,8 @@ const StarMap = ({ starData }) => {
       
       <input
         type="text"
-        placeholder="Search Magnitude"
-        value={searchMagnitude}
+        placeholder="Search by HIP Name"
+        value={searchHIP}
         style={{
           position: 'fixed',
           top: '20px',
@@ -156,11 +139,11 @@ const StarMap = ({ starData }) => {
           zIndex: 10,
         }}
         className=" px-4 py-2 border border-blue-500 rounded-full focus:outline-none focus:ring-2 focus:ring-blue-500"
-        onChange={(e) => setSearchMagnitude(e.target.value)}
+        onChange={(e) => setSearchHIP(e.target.value)}
         onKeyDown={(e) => {
           if (e.key === 'Enter') {
             handleSearch();
-            setSearchMagnitude('');
+            setSearchHIP('');
           }
         }}
       />
@@ -178,6 +161,10 @@ const StarMap = ({ starData }) => {
       </button>
     
       <svg ref={svgRef}></svg>
+      <footer style={{ position: 'absolute', bottom: 0, width: '20%', background: 'rgba(0, 0, 0, 0.01)', color: 'white', padding: '10px', zIndex: 10 }}>
+        <p>&copy; API Source: <a href=" https://exoplanetarchive.ipac.caltech.edu/cgi-bin/TblView/nph-tblView?app=ExoTbls&config=missionstars" target="_blank">NASA </a></p>
+       
+      </footer>
     </div>
   );
 };

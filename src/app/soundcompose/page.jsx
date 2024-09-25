@@ -22,7 +22,7 @@ const SoundComposer = () => {
             barWidth: 3,
             barRadius: 3,
             responsive: true,
-            height: 100,
+            height: 50,
             normalize: true,
             backend: 'MediaElement',
         });
@@ -101,7 +101,8 @@ const SoundComposer = () => {
 
     return (
         <>
-            <Navbar />
+       
+         
             <div
                 className="flex flex-col items-center justify-center min-h-screen"
                 style={{
@@ -109,14 +110,17 @@ const SoundComposer = () => {
                     backgroundSize: 'cover',
                 }}
             >
+                 
+        <Navbar />
+    
                 <div className="grid grid-row-3">
                     <div className="rows-span-1 ">
                         <div className="grid grid-cols-5 ">
                             <div className="col-span-1 border border-red-500">
-                                <div className="px-24 py-5  bg-gradient-to-r from-blue-400 to-red-600">
+                                <div className="px-24 py-5 h-full  bg-gradient-to-r from-blue-400 to-red-600">
                                     <div
                                         ref={waveformRef}
-                                        className="h-24 w-full bg-gradient-to-r from-green-400 to-purple-600 mb-4"
+                                        className="h-14 w-full bg-gradient-to-r from-green-400 to-purple-600 mb-4"
                                     ></div>
                                     <div className="flex space-x-4 mt-4">
                                         <button
@@ -137,10 +141,18 @@ const SoundComposer = () => {
                             <div className="col-span-4 gap-4 border border-red-500">
 
                                 <div className="flex justify-between items-center my-4 px-4">
-
+                                    <div className="">
+                                <div className="">
                                     <button className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-800 transition">
                                         Enter to Save
                                     </button>
+                                    <button className="bg-yellow-500 text-white px-4 py-2 rounded-full hover:bg-yellow-700 transition">
+                                        →
+                                    </button>
+                                </div>
+                             
+                               
+                                   
                                     <div className="flex flex-row gap-4 my-4">
                                         <div className="flex items-center gap-2">
                                             <span className="text-white">Arohi</span>
@@ -173,10 +185,8 @@ const SoundComposer = () => {
                                             />
                                         </div>
                                     </div>
-
-                                    <button className="bg-yellow-500 text-white px-4 py-2 rounded-full hover:bg-yellow-700 transition">
-                                        →
-                                    </button>
+                                                <div className="">play undo redo button </div>
+                                    </div>
                                     <div className="relative">
 
                                         <img
@@ -205,7 +215,7 @@ const SoundComposer = () => {
                                         </div>
                                     </div>
                                 </div>
-                                <div ref={waveformRef} className="h-24 w-full bg-gradient-to-r from-green-400 to-purple-600"></div>
+                                <div ref={waveformRef} className="h-14 w-full bg-gradient-to-r from-green-400 to-purple-600"></div>
                             </div>
 
 
