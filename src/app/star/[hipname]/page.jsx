@@ -8,6 +8,7 @@ import { IoIosExpand, IoIosPlay, IoIosPause } from "react-icons/io";
 import { IoClose } from "react-icons/io5";
 
 const StarPage = () => {
+  const imageBG ='/bg2.png'
   const BackgroundMusic = "/southRing.mp4";
   const [hipName, setHipName] = useState("");
   const [starData, setStarData] = useState(null);
@@ -76,11 +77,12 @@ const StarPage = () => {
         {starData ? (
           <>
             <div className="flex justify-between flex-1 w-full gap-5">
-              <div className="flex-1 pr-5 mt-14 ">
+              <div className="flex-1 pr-5 mt-14 min-h ">
                 <video controls autoPlay loop className="w-full rounded-lg">
                   <source src={BackgroundMusic} type="video/mp4" />
                   Your browser does not support the video tag.
                 </video>
+                
 
                 <div className="text-white bg-black bg-opacity-70 p-4 rounded-lg mt-4">
                   <h2>Star Information:</h2>
@@ -103,7 +105,7 @@ const StarPage = () => {
               </div>
               <div className="relative flex-2 pt-14 text-center">
                 <img
-                  src={svgImage}
+                  src={imageBG}
                   alt="Star"
                   className="max-w-full  rounded-lg max-h-[70vh] cursor-pointer shadow-lg"
                 />

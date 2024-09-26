@@ -123,25 +123,20 @@ const DrawingBoard = () => {
                     backgroundSize: 'cover',
                 }}
             >
-                <div className="w-1/2 p-4 border-r">
+                <div className="w-1/4 p-4 border-r">
                     <img src="/pilar.png" alt="Placeholder" className="w-full h-2/3 rounded-lg" />
                     <div className=" mt-4">
-                       <h1 className='text-3xl text-blue-600 font-bold text-center'>Image info</h1>
-                       <div className="text-start ps-24 pt-5  text-xl">
-                       <p><span className='text-cyan-700 font-bold'>Name : </span>M16, Eagle Nebula, NGC 6611</p>
-                       <p><span className='text-cyan-700 font-bold'>Constellation : </span>:	Serpens</p>
-
-                       <p><span className='text-cyan-700 font-bold'>Color Info : </span>These images are a composite of separate exposures acquired by the James Webb Space Telescope using the NIRCam and MIRI instruments. Several filters were used to sample different infrared wavelength ranges. The color results from assigning different hues (colors) to each monochromatic (grayscale) image associated with an individual filter. In this case, the assigned colors are:    Purple: F090W, Blue: F187N and F770W, Cyan: F200W, Green: F1130W; Yellow: F335M, Orange: F444W, Red: F470N and F1500W </p>
-                      
+                       <div className="text-start ps-24 pt-5 ">
+                       <p><span className='text-cyan-700 font-bold'>Color Info : </span>Purple: F090W, Blue: F187N and F770W, Cyan: F200W, Green: F1130W; Yellow: F335M, Orange: F444W, Red: F470N and F1500W </p> 
                        </div>
                       
                     </div>
                 </div>
 
-                <div className="relative w-1/2 p-4">
+                <div className="relative w-3/4 p-4">
                     <canvas
                         ref={canvasRef}
-                        width={window.innerWidth / 2.1}
+                        width={window.innerWidth /1.5}
                         height={window.innerHeight / 1.059}
                         style={{
                             border: '6px solid #338c97',
