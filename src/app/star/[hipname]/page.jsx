@@ -32,6 +32,7 @@ const StarPage = () => {
       setSvgImage(data.img);
     }
   }, [hipName]);
+  
   useEffect(() => {
     if (starData && waveformRef.current) {
       waveSurferRef.current = WaveSurfer.create({

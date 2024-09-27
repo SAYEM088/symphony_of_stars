@@ -1,0 +1,10 @@
+{
+    "sounds": [
+        "/sounds/customSound1.mp3",
+        "/sounds/customSound2.mp3",
+        "/sounds/customSound3.mp3",
+        "/sounds/customSound4.mp3",
+        "/sounds/customSound5.mp3",
+        "/sounds/customSound6.mp3"
+    ]
+}
