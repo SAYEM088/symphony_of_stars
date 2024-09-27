@@ -22,9 +22,9 @@ const backgroundImage ='/bg2.png'
     return (
         <><Navbar></Navbar>
         <div style={{backgroundImage: `url(${backgroundImage})`,
-                backgroundSize: 'cover',}} className="sound-match-page p-6 bg-gray-100 min-h-screen flex flex-col items-center space-y-8">
+                backgroundSize: 'cover',}} className="sound-match-page p-6  min-h-screen flex flex-col items-center space-y-8">
             <div className="text-white text-2xl">Quiz</div>
-            <div className="card bg-white shadow-md rounded-lg p-5 w-full max-w-md">
+            <div className="card bg-gradient-to-r from-pink-500 to-orange-500 shadow-md rounded-lg  p-20 w-full max-w-md">
                 <h3 className="text-lg font-bold mb-2">Symphony of A star</h3>
                 <div className="w-full bg-gray-200 rounded-full h-2.5 mb-4">
                     <div
@@ -32,14 +32,14 @@ const backgroundImage ='/bg2.png'
                         style={{ width: `${progress}%` }}
                     ></div>
                 </div>
-                <div className="controls flex justify-around">
-                    <button onClick={() => setProgress(0)} className="flex items-center justify-center bg-red-500 text-white rounded-lg px-4 py-2">
+                <div className="controls flex gap-2 justify-around">
+                    <button onClick={() => setProgress(0)} className="flex border-2 border-white items-center justify-center bg-gradient-to-r from-cyan-400 to-red-500 text-white rounded-lg px-4 py-2">
                         <FaStop className="mr-2" /> Stop
                     </button>
-                    <button onClick={() => setProgress(50)} className="flex items-center justify-center bg-yellow-500 text-white rounded-lg px-4 py-2">
+                    <button onClick={() => setProgress(50)} className="flex  border-2 border-white items-center justify-center bg-gradient-to-r from-red-400 to-green-500 text-white rounded-lg px-4 py-2">
                         <FaPause className="mr-2" /> Pause
                     </button>
-                    <button onClick={() => handleProgress()} className="flex items-center justify-center bg-green-500 text-white rounded-lg px-4 py-2">
+                    <button onClick={() => handleProgress()} className="flex  border-2 border-white items-center justify-center bg-gradient-to-r from-green-400 to-cyan-500 text-white rounded-lg px-4 py-2">
                         <FaRedo className="mr-2" /> Restart
                     </button>
                 </div>

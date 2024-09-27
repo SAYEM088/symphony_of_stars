@@ -3,6 +3,7 @@ import Navbar from '@/components/Navbar';
 import React, { useState, useEffect } from 'react';
 import { DndProvider, useDrag, useDrop } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
+import { FaUserAstronaut } from "react-icons/fa";
 import { FiCheckCircle, FiUser, FiArrowRightCircle, FiX } from 'react-icons/fi'; // Import FiX for cross button
 
 const ImagePuzzle = () => {
@@ -98,16 +99,16 @@ const ImagePuzzle = () => {
             </div>
             <div style={styles.page}>
                 <div style={styles.profileBox}>
-                    <FiUser size={40} />
+                    <FaUserAstronaut size={40} className='mt-2 p-1 bg-gradient-to-r from-cyan-200  border-2 border-white to-orange-300 ' />
                     <div>Level: {level}</div>
                     <div>Points: {points}</div>
                     <button onClick={switchImage} style={styles.switchButton}>
-                        <FiArrowRightCircle size={24} /> Switch Image
+                        <FiArrowRightCircle size={20} /> Switch Image
                     </button>
                 </div>
 
                 {/* Puzzle Container */}
-                <div className='w-1/3 h-1/3' style={styles.puzzleContainer}>
+                <div className='w-1/3 h-1/3 text-center' style={styles.puzzleContainer}>
                     <div className="flex justify-center items-center">
                         <div style={{ display: 'grid', gridTemplateColumns: `repeat(${gridCols}, ${pieceSize}px)` }}>
                             {pieces.map((pieceIndex, idx) => (
@@ -128,8 +129,8 @@ const ImagePuzzle = () => {
                     {/* Check Match Button Always at Bottom */}
                     <button
                         onClick={checkMatch}
-                        style={{ marginTop: '20px', display: 'flex', alignItems: 'center' }}
-                        className="check-button bg-blue ps-60"
+                        style={{ margin:"auto", marginTop: '2rem', display: 'flex', alignItems: 'center',  }}
+                        className=" check-button  bg-gradient-to-r from-cyan-200  border-2 border-white to-orange-300 text-red-800 bg-opacity-50  rounded-full p-2"
                     >
                         <FiCheckCircle style={{ marginRight: '10px' }} size={24} />
                         Check Match
@@ -194,7 +195,7 @@ const PuzzlePiece = ({ image, index, pieceIndex, pieceSize, gridRows, gridCols, 
                 backgroundPosition: `-${x}px -${y}px`,
                 backgroundSize: `${pieceSize * gridCols}px ${pieceSize * gridRows}px`,
                 opacity: isDragging ? 0.5 : 1,
-                border: '1px solid #ccc',
+                border: '1px solid #66cc99',
             }}
         />
     );
@@ -223,18 +224,20 @@ const styles = {
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
-        gap: '2px',
+        gap: '1px',
         color: "#3aa2f4"
     },
     puzzleContainer: {
         padding: '20px',
-        backgroundColor: '#fff',
+        background: 'linear-gradient(135deg,  #cc6699, #4caf50)',
         borderRadius: '8px',
+        border:'2px solid white',
         boxShadow: '0px 4px 10px rgba(0,0,0,0.1)',
         textAlign: 'center',
-    },
+        height:'auto'
+    },    
     switchButton: {
-        marginTop: '10px',
+        marginTop: '5px',
         display: 'flex',
         alignItems: 'center',
         cursor: 'pointer',

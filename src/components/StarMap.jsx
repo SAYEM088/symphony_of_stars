@@ -130,7 +130,7 @@ const StarMap = ({ starData }) => {
       
       <input
         type="text"
-        placeholder="Search by HIP Name"
+        placeholder="Search by HIP"
         value={searchHIP}
         style={{
           position: 'fixed',
@@ -154,7 +154,7 @@ const StarMap = ({ starData }) => {
         right: '45px',
         zIndex: 10,
       }}
-        className="px-4 py-2 text-2xl bg-blue-500 rounded-r-full flex items-center justify-center"
+        className="px-4 py-2 text-2xl text-pink-500 bg-gradient-to-r from-cyan-400 to-red-600 rounded-r-full flex items-center justify-center"
         onClick={handleSearch}
       >
         <FaSearch className="text-white" />

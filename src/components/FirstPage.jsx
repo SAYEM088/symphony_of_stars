@@ -9,6 +9,7 @@ import { SiProbot } from "react-icons/si";
 import { GiAstronautHelmet } from "react-icons/gi";
 import Navbar from "./Navbar";
 import ShareInSocial from "./ShareInSocial";
+import { FaMicrophoneAlt } from "react-icons/fa";
 
 const Model = ({ onInteract }) => {
   const { scene } = useGLTF('/jwst1.glb');
@@ -44,8 +45,7 @@ const FirstPage = () => {
   const [chatMessages, setChatMessages] = useState([]);
   const [aiMessage, setAiMessage] = useState('');
   const [recognition, setRecognition] = useState(null);
-  const [isExpanded, setIsExpanded] = useState(true); // State for expand/minimize
-
+  const [isExpanded, setIsExpanded] = useState(true);
   const handleInteract = () => {
     setShowInfo(true);
     setTimeout(() => setShowInfo(false), 120000);
@@ -124,24 +124,24 @@ const FirstPage = () => {
       <Navbar></Navbar>
       <div className="relative w-full h-screen bg-center bg-cover" style={{ backgroundImage: "url('/bg.png')" }}>
         {showInfo && (
-          <div className="absolute w-70 left-1/3 ms-10 bottom-2 opacity-70 rounded bg-gray-600 text-white p-4 text-center z-30">
+          <div className="absolute w-70 left-1/3 ms-10 bottom-2 opacity-70 rounded bg-gradient-to-r from-orange-600 to-cyan-500 text-white p-4 text-center z-30">
             <p className="typewriter">This is James Webb Space Telescope</p>
           </div>
         )}
 
-        <div className=" absolute left-15 top-20  z-20 ">
+        <div className=" absolute left-15 top-24  z-20 ">
         <ShareInSocial></ShareInSocial>
         </div>
 
         <div className={`absolute right-0 bottom-4 z-20 flex flex-col gap-2 ${isExpanded ? 'h-auto' : 'h-20'} transition-all`}>
-          <div className={`bg-cyan-600 bg-opacity-80 shadow-lg rounded-lg p-2 w-${isExpanded ? '3/4' : '20'} transition-all`}>
+          <div className={`bg-gradient-to-r from-orange-400 to-cyan-500 bg-opacity-80 shadow-lg rounded-lg p-2 w-${isExpanded ? '3/4' : '20'} transition-all`}>
             <div className="flex items-center justify-between">
               <div className="flex items-center ms-3 space-x-2">
-                <SiProbot className="text-3xl" />
-                <h2 className="text-lg font-semibold">AI Chatbot</h2>
+                <SiProbot className="text-3xl bg-gradient-to-r from-cyan-200  to-orange-300 text-red-800 rounded-full p-1" />
+                <h2 className="text-lg font-semibold text-pink-900">AI Chatbot</h2>
               </div>
               <button onClick={() => setIsExpanded(!isExpanded)} className="p-2">
-                {isExpanded ? <LuMinimize2 className="text-2xl" /> : <LuMaximize2 className="text-2xl" />}
+                {isExpanded ? <LuMinimize2 className="text-2xl bg-gradient-to-r from-cyan-200  to-orange-300 text-red-800 rounded-full p-1 " /> : <LuMaximize2 className="text-2xl bg-gradient-to-r from-cyan-200  to-orange-300 text-red-800 rounded-full p-1" />}
               </button>
             </div>
 
@@ -164,13 +164,13 @@ const FirstPage = () => {
                       type="text"
                       value={chatInput}
                       onChange={(e) => setChatInput(e.target.value)}
-                      className="flex-1 p-2 border rounded-md"
+                      className="flex-1 p-2 border border-gradient-to-r from-cyan-200  to-orange-300  border-xl rounded-md"
                       placeholder="Type your message"
                     />
-                    <button onClick={startRecognition} className="p-2 bg-blue-500 text-white rounded-full hover:bg-blue-700">
-                      🎤
+                    <button onClick={startRecognition} className="p-2 bg-gradient-to-r from-cyan-200  to-orange-300 text-red-800  rounded-full hover:bg-blue-700">
+                    <FaMicrophoneAlt  className="text-xl" />
                     </button>
-                    <button onClick={handleSendMessage} className="p-2 bg-blue-500 text-white rounded-full hover:bg-blue-700">
+                    <button onClick={handleSendMessage} className="p-2 bg-gradient-to-r from-cyan-200  to-orange-300 text-red-800  rounded-full hover:bg-blue-700">
                       <LuSend className="text-xl" />
                     </button>
                   </div>
