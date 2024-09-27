@@ -3,25 +3,24 @@ import { CiStar } from "react-icons/ci";
 import { Canvas, useFrame } from '@react-three/fiber';
 import { OrbitControls, useGLTF } from '@react-three/drei';
 import React, { useState, useEffect, useRef } from 'react';
-import { LuSearch, LuSend } from "react-icons/lu";
+import { LuSearch, LuSend, LuMinimize2, LuMaximize2 } from "react-icons/lu"; // Added LuMinimize2 and LuMaximize2
 import aiAnswers from '@/components/data/aiquanswer.json';
 import { SiProbot } from "react-icons/si";
 import { GiAstronautHelmet } from "react-icons/gi";
 import Navbar from "./Navbar";
 import ShareInSocial from "./ShareInSocial";
-import ProfileCard from "./ProfileCard";
 
 const Model = ({ onInteract }) => {
-  const { scene } = useGLTF('/jwst.glb');
+  const { scene } = useGLTF('/jwst1.glb');
   const modelRef = useRef();
   const [rotationSpeed, setRotationSpeed] = useState(0.0005);
-  const [scale, setScale] = useState(0.3);
+  const [scale, setScale] = useState(1.5);
 
   useFrame(() => {
     if (modelRef.current) {
       modelRef.current.rotation.y += rotationSpeed;
-      if (scale < 0.5) {
-        setScale((prev) => Math.min(prev + 0.000001, 0.6));
+      if (scale < 1.8) {
+        setScale((prev) => Math.min(prev + 0.000001, 1.5));
       }
       modelRef.current.scale.set(scale, scale, scale);
     }
@@ -29,6 +28,7 @@ const Model = ({ onInteract }) => {
 
   return (
     <primitive
+    position={[0, -2, 0]}
       object={scene}
       scale={scale}
       ref={modelRef}
@@ -44,6 +44,7 @@ const FirstPage = () => {
   const [chatMessages, setChatMessages] = useState([]);
   const [aiMessage, setAiMessage] = useState('');
   const [recognition, setRecognition] = useState(null);
+  const [isExpanded, setIsExpanded] = useState(true); // State for expand/minimize
 
   const handleInteract = () => {
     setShowInfo(true);
@@ -128,57 +129,56 @@ const FirstPage = () => {
           </div>
         )}
 
-        <div className=" absolute left-15 top-28  z-20 ">
-          <ShareInSocial></ShareInSocial>
+        <div className=" absolute left-15 top-20  z-20 ">
+        <ShareInSocial></ShareInSocial>
         </div>
-        <div className="absolute right-2 top-20 z-20 flex flex-col gap-2">
-          <div className="">
-            <ProfileCard />
-          </div>
-          <div className="bg-cyan-600  bg-opacity-80 shadow-lg rounded-lg p-1 ">
-            <div className="flex items-center ms-3 space-x-2">
-              <SiProbot className="text-3xl" />
-              <h2 className="text-lg font-semibold">AI Chatbot</h2>
+
+        <div className={`absolute right-0 bottom-4 z-20 flex flex-col gap-2 ${isExpanded ? 'h-auto' : 'h-20'} transition-all`}>
+          <div className={`bg-cyan-600 bg-opacity-80 shadow-lg rounded-lg p-2 w-${isExpanded ? '3/4' : '20'} transition-all`}>
+            <div className="flex items-center justify-between">
+              <div className="flex items-center ms-3 space-x-2">
+                <SiProbot className="text-3xl" />
+                <h2 className="text-lg font-semibold">AI Chatbot</h2>
+              </div>
+              <button onClick={() => setIsExpanded(!isExpanded)} className="p-2">
+                {isExpanded ? <LuMinimize2 className="text-2xl" /> : <LuMaximize2 className="text-2xl" />}
+              </button>
             </div>
-            <div className="grid grid-rows-5 h-64">
-              <div className="rows-span-3 chatBox overflow-y-auto pr-2"> 
-                {chatMessages.map((message, index) => (
-                <div key={index} className={`flex ${message.type === 'user' ? 'justify-end' : 'justify-start'} mb-2`}>
-                  {message.type === 'ai' && <GiAstronautHelmet className="mr-2" />}
-                  <p className={`text-sm ${message.type === 'user' ? 'text-blue-600' : 'text-gray-800'} bg-gray-100 p-2 rounded-lg`}>
-                    {message.message}
-                  </p>
-                  {message.type === 'user' && <LuSend className="ml-2" />}
+
+            {isExpanded && (
+              <div className="grid grid-rows-5 h-64">
+                <div className="rows-span-3 chatBox overflow-y-auto pr-2">
+                  {chatMessages.map((message, index) => (
+                    <div key={index} className={`flex ${message.type === 'user' ? 'justify-end' : 'justify-start'} mb-2 w-3/4`}>
+                      {message.type === 'ai' && <GiAstronautHelmet className="mr-2" />}
+                      <p className={`text-sm ${message.type === 'user' ? 'text-blue-600' : 'text-gray-800'} bg-gray-100 p-2 rounded-lg`}>
+                        {message.message}
+                      </p>
+                      {message.type === 'user' && <LuSend className="ml-2" />}
+                    </div>
+                  ))}
                 </div>
-              ))}
+                <div className="rows-span-2">
+                  <div className="flex absolute w-2/4 mx-2 bottom-2 space-x-2">
+                    <input
+                      type="text"
+                      value={chatInput}
+                      onChange={(e) => setChatInput(e.target.value)}
+                      className="flex-1 p-2 border rounded-md"
+                      placeholder="Type your message"
+                    />
+                    <button onClick={startRecognition} className="p-2 bg-blue-500 text-white rounded-full hover:bg-blue-700">
+                      🎤
+                    </button>
+                    <button onClick={handleSendMessage} className="p-2 bg-blue-500 text-white rounded-full hover:bg-blue-700">
+                      <LuSend className="text-xl" />
+                    </button>
+                  </div>
+                </div>
               </div>
-              <div className="rows-span-2">
-              <div className="flex absolute w-96 mx-2 bottom-2  space-x-2">
-            <input
-              type="text"
-              value={chatInput}
-              onChange={(e) => setChatInput(e.target.value)}
-              className="flex-1 p-2 border rounded-md"
-              placeholder="Type your message"
-            />
-            <button
-              onClick={startRecognition}
-              className="p-2 bg-blue-500 text-white rounded-full hover:bg-blue-700"
-            >
-              🎤 
-            </button>
-            <button
-              onClick={handleSendMessage}
-              className="p-2 bg-blue-500 text-white rounded-full hover:bg-blue-700"
-            >
-              <LuSend className="text-xl" />
-            </button>
-          </div>
-              </div>
-            </div>
+            )}
           </div>
         </div>
-       
 
         <div className="absolute inset-0 z-0 flex justify-center items-center">
           <Canvas className="w-full h-full">
@@ -190,29 +190,26 @@ const FirstPage = () => {
         </div>
 
         <style jsx>{`
-        @keyframes typewriter {
-          from { width: 0; }
-          to { width: 100%; }
-        }
-
-        .typewriter {
-          font-family: monospace;
-          white-space: nowrap;
-          overflow: hidden;
-          border-right: 0.15em solid white;
-          animation: typewriter 5s steps(40, end), blink 0.75s step-end infinite;
-        }
-
-        @keyframes blink {
-          from, to { border-color: transparent; }
-          50% { border-color: white; }
-        }
-    
-        .chatBox {
-        height:190px;
-        width:400px;
-        }
-      `}</style>
+          @keyframes typewriter {
+            from { width: 0; }
+            to { width: 100%; }
+          }
+          .typewriter {
+            font-family: monospace;
+            white-space: nowrap;
+            overflow: hidden;
+            border-right: 0.15em solid white;
+            animation: typewriter 5s steps(40, end), blink 0.75s step-end infinite;
+          }
+          @keyframes blink {
+            from, to { border-color: transparent; }
+            50% { border-color: white; }
+          }
+          .chatBox {
+            height: 190px;
+            width: 400px;
+          }
+        `}</style>
       </div>
     </>
   );

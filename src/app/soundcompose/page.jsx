@@ -8,9 +8,15 @@ import { motion } from 'framer-motion';
 const backgroundImage = '/bg2.png';
 
 const SoundComposer = () => {
+    // natural sound handling
     const waveformRef = useRef(null);
     const wavesurfer = useRef(null);
     const [isPlaying, setIsPlaying] = useState(false);
+   
+    // user composer sound handling
+    const userwaveformRef = useRef(null)
+    const userwavesurfer = useRef(null);
+    const [userIsPlay, setuserIsPlay] =useState(false)
     const [keyFills, setKeyFills] = useState({});
 
     useEffect(() => {
@@ -18,6 +24,18 @@ const SoundComposer = () => {
             container: waveformRef.current,
             waveColor: 'violet',
             progressColor: 'purple',
+            cursorColor: 'navy',
+            barWidth: 3,
+            barRadius: 3,
+            responsive: true,
+            height: 50,
+            normalize: true,
+            backend: 'MediaElement',
+        });
+        userwavesurfer.current = WaveSurfer.create({
+            container: userwaveformRef.current,
+            waveColor: 'orange',
+            progressColor: 'red',
             cursorColor: 'navy',
             barWidth: 3,
             barRadius: 3,
@@ -113,15 +131,21 @@ const SoundComposer = () => {
                  
         <Navbar />
     
-                <div className="grid grid-row-3">
+                <div className="grid grid-row-3 mt-8 px-4 w-full">
                     <div className="rows-span-1 ">
                         <div className="grid grid-cols-5 ">
                             <div className="col-span-1 border border-red-500">
-                                <div className="px-24 py-5 h-full  bg-gradient-to-r from-blue-400 to-red-600">
-                                    <div
+                                <div className="px-1  py-5 h-full flex flex-col justify-center items-center  bg-gradient-to-r from-blue-400 to-red-600">
+                                    <div className="w-full">
+                                        <h1>Original sound</h1>
+                                        <div
                                         ref={waveformRef}
-                                        className="h-14 w-full bg-gradient-to-r from-green-400 to-purple-600 mb-4"
+                                    
+                                        className="h-14  bg-gradient-to-r from-green-400 to-purple-600 mb-4"
                                     ></div>
+
+                                    </div>
+                                    <div className="">
                                     <div className="flex space-x-4 mt-4">
                                         <button
                                             className="bg-green-500 text-white p-2 rounded-full hover:bg-green-700 transition-all"
@@ -135,14 +159,16 @@ const SoundComposer = () => {
                                         >
                                             <FaRedo size={20} />
                                         </button>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
+                            {/* Sound making canvas start.. */}
                             <div className="col-span-4 gap-4 border border-red-500">
 
                                 <div className="flex justify-between items-center my-4 px-4">
-                                    <div className="">
-                                <div className="">
+                                    <div className="w-full">
+                                <div className=" flex justify-between items-center">
                                     <button className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-800 transition">
                                         Enter to Save
                                     </button>
@@ -153,7 +179,7 @@ const SoundComposer = () => {
                              
                                
                                    
-                                    <div className="flex flex-row gap-4 my-4">
+                                    <div className="flex flex-row justify-evently ms-auto gap-4 my-4">
                                         <div className="flex items-center gap-2">
                                             <span className="text-white">Arohi</span>
                                             <input
@@ -185,7 +211,12 @@ const SoundComposer = () => {
                                             />
                                         </div>
                                     </div>
-                                                <div className="">play undo redo button </div>
+                              
+                                                <div className="">
+                                                    <button className='bg-blue-500 p-3 m-2 rounded'>play</button>
+                                                    <button className='bg-blue-500 p-3 m-2 rounded'> undo</button>
+                                                    <button className='bg-blue-500 p-3 m-2 rounded'>redo</button>
+                                                     </div>
                                     </div>
                                     <div className="relative">
 
@@ -215,7 +246,9 @@ const SoundComposer = () => {
                                         </div>
                                     </div>
                                 </div>
-                                <div ref={waveformRef} className="h-14 w-full bg-gradient-to-r from-green-400 to-purple-600"></div>
+                                <div ref={userwaveformRef}
+                          
+                                 className="h-14 w-full bg-gradient-to-r from-orange-400 to-red-600"></div>
                             </div>
 
 
@@ -226,10 +259,11 @@ const SoundComposer = () => {
                             <button className='bg-blue-500 p-3'>Add your sound</button>
                             <button className='bg-blue-500 p-3'>Change Key Sound</button>
                         </div>
-                        <div className="grid grid-cols-1 gap-2">
-                            <div className="grid grid-cols-7 gap-2">
+                        <div className="grid grid-cols-1 gap-2 text-white text-xl bg-red-300">
+                            {/* all of the key('f', 'd', 's', 'a', 'w', 'e', 'r','j', 'k', 'l', ';', 'u', 'i', 'o',' ', 'y') will play sound when it press */}
+                            <div className="grid grid-cols-7 gap-2 ">
                                 {['f', 'd', 's', 'a', 'w', 'e', 'r'].map((key) => (
-                                    <div className="border border-white p-4 text-center relative" key={key}>
+                                    <div className="border border-white bg-red-300 p-4 text-center relative" key={key}>
                                         <motion.div
                                             className="absolute bottom-0 left-0 w-full bg-blue-500"
                                             animate={{ height: `${keyFills[key] || 0}%` }}

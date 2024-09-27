@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { AiOutlineHeart, AiOutlineShareAlt } from 'react-icons/ai';
 import { MdOutlineCloseFullscreen } from "react-icons/md";
 import { MdOutlineOpenInFull } from "react-icons/md";
+import ProfileCard from './ProfileCard';
 const ShareInSocial = () => {
 
   const mockPosts = [
@@ -57,13 +58,16 @@ const ShareInSocial = () => {
 
   return (
     <div className={`flex p-4 ${sidebarOpen ? 'w-4/6' : 'w-3/6'} transition-all duration-300`}>
-      <div className="news-feed-container max-w-full md:max-w-2xl h-3/4 overflow-hidden bg-green-600 pt-11 px-3 pb-2 rounded">
+      <div className="news-feed-container max-w-full md:max-w-2xl h-full overflow-hidden bg-green-600 pt-1 px-3 pb-2 rounded">
         <div className="flex justify-between items-center mb-4">
-          <h2 className="text-xl font-bold">Share Feed</h2>
+          <a href='/socialfeed' className="text-xl font-bold">Share Feed</a>
           <button onClick={toggleSidebar} className="text-white hover:text-white">
             {sidebarOpen ? <MdOutlineCloseFullscreen /> : <MdOutlineOpenInFull />}
           </button>
         </div>
+        <div className="">
+        <ProfileCard/>
+      </div>
 
 
         <div className="posts-feed overflow-hidden">
