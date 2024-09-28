@@ -9,7 +9,7 @@ import {
   FaSave,
   FaPalette,
 } from "react-icons/fa";
-import { HexColorPicker } from "react-colorful"; // New Color Picker
+import { HexColorPicker } from "react-colorful";
 
 const DrawingBoard = () => {
   const canvasRef = useRef(null);
@@ -21,15 +21,20 @@ const DrawingBoard = () => {
   const [showSaveGif, setShowSaveGif] = useState(false);
   const [currentColor, setCurrentColor] = useState("#000000");
   const [brushSize, setBrushSize] = useState(5);
+  const [brushHardness, setBrushHardness] = useState(100); // New state for hardness
+  const [brushSpacing, setBrushSpacing] = useState(1); // New state for spacing
   const [showColorPalette, setShowColorPalette] = useState(false);
   const [selectedImage, setSelectedImage] = useState("/pilar.png"); // Default image
-  const [isSketchMode, setIsSketchMode] = useState(false); // Sketch mode state
+  const [isSketchMode, setIsSketchMode] = useState(false);
+  const [showBrushPanel, setShowBrushPanel] = useState(false);
 
   const startDrawing = (e) => {
     setIsDrawing(true);
     const ctx = canvasRef.current.getContext("2d");
     ctx.strokeStyle = currentColor;
     ctx.lineWidth = brushSize;
+    ctx.lineCap = "round"; // Smoother brush edges
+    ctx.globalAlpha = brushHardness / 100;
     ctx.beginPath();
     ctx.moveTo(e.nativeEvent.offsetX, e.nativeEvent.offsetY);
   };
@@ -104,6 +109,7 @@ const DrawingBoard = () => {
 
   const handleBrush = () => {
     setIsEraserActive(false);
+    setShowBrushPanel(true); // Open brush tool panel
   };
 
   const toggleColorPalette = () => {
@@ -112,7 +118,6 @@ const DrawingBoard = () => {
 
   const handleColorChange = (color) => {
     setCurrentColor(color);
-    setShowColorPalette(false); // Automatically close after choosing a color
   };
 
   const handleTipsClick = () => {
@@ -149,6 +154,20 @@ const DrawingBoard = () => {
     setSelectedImage(sketchDataURL);
     setIsSketchMode(true);
   };
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (!event.target.closest(".color-picker")) {
+        setShowColorPalette(false);
+      }
+    };
+
+    if (showColorPalette) {
+      document.addEventListener("mousedown", handleClickOutside);
+    }
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [showColorPalette]);
 
   useEffect(() => {
     const ctx = canvasRef.current.getContext("2d");
@@ -208,7 +227,7 @@ const DrawingBoard = () => {
             onMouseLeave={stopDrawing}
           />
 
-          {/* Action buttons placed at the top-left corner */}
+
           <div className="absolute top-4 left-4 flex space-x-2">
             <button
               className="bg-blue-500 text-white p-2 rounded hover:bg-blue-600"
@@ -234,64 +253,76 @@ const DrawingBoard = () => {
             >
               <FaEraser />
             </button>
-            <button
-              className="bg-gray-500 text-white p-2 rounded hover:bg-gray-600"
-              onClick={handleBrush}
-            >
-              <FaPaintBrush />
-            </button>
-            <button
-              className="bg-purple-500 text-white p-2 rounded hover:bg-purple-600"
-              onClick={toggleColorPalette}
-            >
-              <FaPalette />
-            </button>
 
-            {showColorPalette && (
-              <div className="absolute top-12 left-0 z-10">
-                <HexColorPicker
-                  color={currentColor}
-                  onChange={handleColorChange}
-                />
-              </div>
-            )}
-
-            {/* Brush size selection */}
-            <div className="ml-4 space-x-2">
+            <div className="fixed right-2 top-4 flex flex-col space-y-2">
               <button
-                className={`bg-gray-${
-                  brushSize === 5 ? "800" : "400"
-                } text-white p-2 rounded`}
-                onClick={() => setBrushSize(5)}
+                className="bg-gray-500 text-white p-2 rounded hover:bg-gray-600"
+                onClick={handleBrush}
               >
-                Small
+                <FaPaintBrush />
               </button>
               <button
-                className={`bg-gray-${
-                  brushSize === 10 ? "800" : "400"
-                } text-white p-2 rounded`}
-                onClick={() => setBrushSize(10)}
+                className="bg-purple-500 text-white p-2 rounded hover:bg-purple-600"
+                onClick={toggleColorPalette}
               >
-                Medium
-              </button>
-              <button
-                className={`bg-gray-${
-                  brushSize === 15 ? "800" : "400"
-                } text-white p-2 rounded`}
-                onClick={() => setBrushSize(15)}
-              >
-                Large
+                <FaPalette />
               </button>
             </div>
+
+            {showBrushPanel && (
+              <div
+                className="fixed top-0 right-0 w-64 h-full bg-white shadow-lg z-20 p-4"
+                style={{ transform: "translateX(0)" }}
+              >
+                <h3 className="text-lg font-bold mb-4">  <button
+                  className="mt-4 bg-red-500 text-white p-2 rounded hover:bg-red-600"
+                  onClick={() => setShowBrushPanel(false)}
+                >
+                  Close
+                </button> Brush Settings</h3>
+                <label>
+                  Brush Size:{" "}
+                  <input
+                    type="range"
+                    min="1"
+                    max="50"
+                    value={brushSize}
+                    onChange={(e) => setBrushSize(e.target.value)}
+                  />
+                </label>
+                <label> Hardness:{" "}
+                   <input type="range" min="0" max="100" value={brushHardness} onChange={(e) => setBrushHardness(e.target.value)} /> 
+                  </label>
+                <label>
+                  Spacing:{" "}
+                  <input
+                    type="range"
+                    min="1"
+                    max="20"
+                    value={brushSpacing}
+                    onChange={(e) => setBrushSpacing(e.target.value)}
+                  />
+                </label>
+                {showColorPalette && (
+              <div className="absolute top-12 left-0 z-10 color-picker">
+                <HexColorPicker color={currentColor} onChange={handleColorChange} />
+              </div>
+            )}
+              </div>
+            )}
+            
           </div>
         </div>
 
-        {showSaveGif && (
-          <div className="absolute inset-0 flex justify-center items-center bg-black bg-opacity-50">
-            <img src="/save.gif" alt="Saving GIF" />
-          </div>
-        )}
       </div>
+
+
+      {showSaveGif && (
+        <div className="absolute inset-0 flex justify-center items-center bg-black bg-opacity-50">
+          <img src="/save.gif" alt="Saving GIF" />
+        </div>
+      )}
+
     </>
   );
 };
