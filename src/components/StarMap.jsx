@@ -66,7 +66,9 @@ const StarMap = ({ starData }) => {
       .style("color", "#1388A2")
       .style("border-radius", "5px")
       .style("display", "none")
+      .style("background-color", "#7F653D") 
       .style("pointer-events", "none");
+
 
     starGroup.selectAll('circle.star')
       .data(starData)
@@ -83,6 +85,7 @@ const StarMap = ({ starData }) => {
 
         tooltip.style("display", "block")
           .html(`
+            
             <strong>Star Name:</strong> ${d.star_name}<br>
             <strong>HIP Name:</strong> ${d.hip_name}<br>
             <strong>Distance (ly):</strong> ${d.st_dist} light years
@@ -114,7 +117,13 @@ const StarMap = ({ starData }) => {
   }, [starData]);
 
   const handleSearch = () => {
-    const star = starData.find(star => star.hip_name === searchHIP);
+    const formattedSearch = searchHIP.trim(); // Trim whitespace from input
+  
+    const star = starData.find(star => 
+      star.hip_name.replace(/\s+/g, '').toUpperCase() === formattedSearch.replace(/\s+/g, '').toUpperCase() || 
+      star.star_name.replace(/\s+/g, '').toUpperCase() === formattedSearch.replace(/\s+/g, '').toUpperCase()
+    );
+  
     if (star && window.zoomBehavior) {
       const ra = parseFloat(star.ra);
       const dec = parseFloat(star.dec);
@@ -123,6 +132,7 @@ const StarMap = ({ starData }) => {
       zoomToStar(ra, dec, width, height, window.zoomBehavior);
     }
   };
+  
 
   return (
     <div>

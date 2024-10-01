@@ -14,7 +14,7 @@ const ProfileCard = () => {
               style={{height:"3.2rem",width:"3.2rem"}}
               className="object-cover rounded px-1"
             />
-          <p className="text-pink-200 text-xl ps-1">sam</p>
+          <p className="text-pink-200 text-xl ps-1">Mr Sam</p>
         </div>
         <div className="flex justify-end ms-auto">
         <div className="">
@@ -23,7 +23,7 @@ const ProfileCard = () => {
         </div>
         <div className="">
                 <GoShareAndroid size={40} className="bg-gradient-to-r from-cyan-200  to-orange-300 text-cyan-800 mx-1 rounded-full p-2" /> 
-                <div className="flex text-pink-100 items-center justify-center" ><p className='text-xl'>50</p><FaArrowUpWideShort  size={8}/></div>
+                <div className="flex text-pink-100 items-center justify-center" ><p className='text-xl'>50</p><FaArrowUpWideShort   size={8}/></div>
         </div>
         <div className="">
                 <FcLike size={40} className="bg-gradient-to-r from-cyan-200  to-orange-300 text-red-800 mx-1 rounded-full p-2" /> 

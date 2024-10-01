@@ -1,5 +1,6 @@
 "use client";
 import Navbar from "@/components/Navbar";
+import axios from 'axios';
 import React, { useRef, useState, useEffect } from "react";
 import {
   FaUndo,
@@ -13,18 +14,18 @@ import { HexColorPicker } from "react-colorful";
 
 const DrawingBoard = () => {
   const canvasRef = useRef(null);
-  const imageRef = useRef(null); // Reference for the image
+  const imageRef = useRef(null); 
   const [isDrawing, setIsDrawing] = useState(false);
-  const [history, setHistory] = useState([]); // Save image states for undo
-  const [redoStack, setRedoStack] = useState([]); // Redo stack for history
+  const [history, setHistory] = useState([]); 
+  const [redoStack, setRedoStack] = useState([]); 
   const [isEraserActive, setIsEraserActive] = useState(false);
   const [showSaveGif, setShowSaveGif] = useState(false);
   const [currentColor, setCurrentColor] = useState("#000000");
   const [brushSize, setBrushSize] = useState(5);
-  const [brushHardness, setBrushHardness] = useState(100); // New state for hardness
-  const [brushSpacing, setBrushSpacing] = useState(1); // New state for spacing
+  const [brushHardness, setBrushHardness] = useState(100);
+  const [brushSpacing, setBrushSpacing] = useState(1); 
   const [showColorPalette, setShowColorPalette] = useState(false);
-  const [selectedImage, setSelectedImage] = useState("/pilar.png"); // Default image
+  const [selectedImage, setSelectedImage] = useState("/pilar.png"); 
   const [isSketchMode, setIsSketchMode] = useState(false);
   const [showBrushPanel, setShowBrushPanel] = useState(false);
 
@@ -33,7 +34,7 @@ const DrawingBoard = () => {
     const ctx = canvasRef.current.getContext("2d");
     ctx.strokeStyle = currentColor;
     ctx.lineWidth = brushSize;
-    ctx.lineCap = "round"; // Smoother brush edges
+    ctx.lineCap = "round"; 
     ctx.globalAlpha = brushHardness / 100;
     ctx.beginPath();
     ctx.moveTo(e.nativeEvent.offsetX, e.nativeEvent.offsetY);
@@ -59,12 +60,14 @@ const DrawingBoard = () => {
 
   const handleSave = () => {
     const dataURL = canvasRef.current.toDataURL();
+    console.log("canvasd img::: ")
+    console.log(dataURL)
     const link = document.createElement("a");
     link.href = dataURL;
     link.download = "drawing.png";
     link.click();
     setShowSaveGif(true);
-    const audio = new Audio("./m2.wav");
+    const audio = new Audio("");
     audio.play();
     setTimeout(() => setShowSaveGif(false), 3000);
   };
@@ -109,7 +112,7 @@ const DrawingBoard = () => {
 
   const handleBrush = () => {
     setIsEraserActive(false);
-    setShowBrushPanel(true); // Open brush tool panel
+    setShowBrushPanel(true); 
   };
 
   const toggleColorPalette = () => {
@@ -175,6 +178,27 @@ const DrawingBoard = () => {
     ctx.strokeStyle = currentColor;
   }, [brushSize, currentColor]);
 
+  const handleShare = async () => {
+    const dataURL = canvasRef.current.toDataURL("image/png");
+    const base64Data = dataURL.replace(/^data:image\/png;base64,/, '');
+    console.log(".........sent img::: ")
+  console.log(dataURL)
+    try {
+      const response = await axios.post('http://localhost:3000/api/addDraw', {
+        data: base64Data 
+      });
+      console.log('Data sent:', response.data);
+    } catch (error) {
+      console.error('Error posting data:', error);
+    }
+  };
+  
+  const changeCanvasBg = (color) => {
+    const ctx = canvasRef.current.getContext("2d");
+    ctx.fillStyle = color; 
+    ctx.fillRect(0, 0, canvasRef.current.width, canvasRef.current.height); 
+  };
+  
   return (
     <>
       <Navbar />
@@ -186,7 +210,7 @@ const DrawingBoard = () => {
           backgroundSize: "cover",
         }}
       >
-        <div className="w-1/4 p-4 border-r">
+        <div className="w-1/4 p-4 mt-28 border-r">
           <img
             ref={imageRef}
             src={selectedImage}
@@ -194,15 +218,15 @@ const DrawingBoard = () => {
             className="w-full h-2/3 rounded-lg"
           />
           <button
-            className="mt-4 bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
+            className="mt-4 bg-gradient-to-r from-orange-400 to-red-600  text-white px-4 py-2 rounded hover:bg-blue-600"
             onClick={handleTipsClick}
           >
-            {isSketchMode ? "Undo" : "Tips (Generate Sketch)"}
+            {isSketchMode ? "Undo" : "Tips"}
           </button>
           <div className="mt-4">
-            <div className="text-start ps-24 pt-5">
+            <div className="text-start ">
               <p>
-                <span className="text-cyan-700 font-bold">Color Info :</span>{" "}
+                <span className="text-cyan-700 font-semibold">Color Info :</span>{" "}
                 Purple: F090W, Blue: F187N and F770W, Cyan: F200W, Green:
                 F1130W; Yellow: F335M, Orange: F444W, Red: F470N and F1500W
               </p>
@@ -211,12 +235,13 @@ const DrawingBoard = () => {
         </div>
 
         <div className="relative w-3/4 p-4">
+        {/* add a button which will change canvasbg (gray,black,offwhite, origial white)  */}
           <canvas
             ref={canvasRef}
             width={window.innerWidth / 1.5}
             height={window.innerHeight / 1.059}
             style={{
-              border: "6px solid #338c97",
+              border: "6px solid #9FE2BF",
               boxShadow: "0 0 15px rgba(0, 0, 0, 0.3)",
               borderRadius: "12px",
               cursor: isEraserActive ? "crosshair" : "auto",
@@ -230,43 +255,51 @@ const DrawingBoard = () => {
 
           <div className="absolute top-4 left-4 flex space-x-2">
             <button
-              className="bg-blue-500 text-white p-2 rounded hover:bg-blue-600"
+              className=" bg-gradient-to-r from-blue-500  to-cyan-300 text-white p-2 rounded hover:bg-blue-600"
               onClick={handleSave}
             >
               <FaSave />
             </button>
             <button
-              className="bg-green-500 text-white p-2 rounded hover:bg-green-600"
+              className="bg-gradient-to-r from-green-500  to-teal-300 text-white p-2 rounded hover:bg-green-600"
               onClick={handleUndo}
             >
               <FaUndo />
             </button>
             <button
-              className="bg-yellow-500 text-white p-2 rounded hover:bg-yellow-600"
+              className="bg-gradient-to-r from-yellow-500  to-red-300 text-white p-2 rounded hover:bg-yellow-600"
               onClick={handleRedo}
             >
               <FaRedo />
             </button>
             <button
-              className="bg-red-500 text-white p-2 rounded hover:bg-red-600"
+              className=" bg-gradient-to-r from-red-400 to-orange-600 text-white p-2  rounded hover:bg-red-600"
               onClick={handleEraser}
             >
               <FaEraser />
             </button>
 
-            <div className="fixed right-2 top-4 flex flex-col space-y-2">
+            <div className="fixed right-2  top-4 flex flex-col space-y-2">
               <button
-                className="bg-gray-500 text-white p-2 rounded hover:bg-gray-600"
+                className=" bg-gradient-to-r from-gray-500 to-orange-600 w-3/4 ms-auto text-white p-2 rounded hover:bg-gray-600"
                 onClick={handleBrush}
               >
-                <FaPaintBrush />
+                <FaPaintBrush  />
               </button>
               <button
-                className="bg-purple-500 text-white p-2 rounded hover:bg-purple-600"
-                onClick={toggleColorPalette}
+                className="bg-gradient-to-r from-cyan-500 to-purple-500  w-3/4 ms-auto text-white p-2 rounded hover:bg-purple-600"
+                onClick={handleBrush}
               >
                 <FaPalette />
               </button>
+
+          <select className="bg-gradient-to-r from-orange-600 to-cyan-500 rounded p-1 w-3/4 ms-auto" onChange={(e) => changeCanvasBg(e.target.value)}>
+        <option value="" disabled selected>Canvas Color</option>
+        <option value="gray">Gray</option>
+        <option value="black">Black</option>
+        <option value="offwhite">Off White</option>
+        <option value="white">Original White</option>
+      </select>
             </div>
 
             {showBrushPanel && (
@@ -279,7 +312,7 @@ const DrawingBoard = () => {
                   onClick={() => setShowBrushPanel(false)}
                 >
                   Close
-                </button> Brush Settings</h3>
+                </button>Settings</h3>
                 <label>
                   Brush Size:{" "}
                   <input
@@ -303,11 +336,11 @@ const DrawingBoard = () => {
                     onChange={(e) => setBrushSpacing(e.target.value)}
                   />
                 </label>
-                {showColorPalette && (
-              <div className="absolute top-12 left-0 z-10 color-picker">
+          
+              <div className="absolute top-60 left-4 z-10 color-picker">
                 <HexColorPicker color={currentColor} onChange={handleColorChange} />
               </div>
-            )}
+        
               </div>
             )}
             
@@ -318,8 +351,9 @@ const DrawingBoard = () => {
 
 
       {showSaveGif && (
-        <div className="absolute inset-0 flex justify-center items-center bg-black bg-opacity-50">
-          <img src="/save.gif" alt="Saving GIF" />
+        <div className="absolute inset-0 flex flex-col gap-2 justify-center items-center bg-black bg-opacity-50">
+          <img src="/nasagif.gif" alt="Saving GIF" />
+          <button className="bg-gradient-to-r from-orange-400 to-red-600 p-3" onClick={handleShare}>Share</button>
         </div>
       )}
 

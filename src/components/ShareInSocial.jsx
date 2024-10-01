@@ -8,8 +8,10 @@ const ShareInSocial = () => {
   const mockPosts = [
     {
       id: 1,
-      account: "Account 1",
-      username: "@userone",
+      img:"/formal.jpg",
+      account: "Mr Sam",
+      username: "@sam880",
+      video:"/1stsharefeed/video1.mp4",
       content: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit.",
       time: "9:30 PM",
       date: "Feb 5, 2022"
@@ -19,7 +21,7 @@ const ShareInSocial = () => {
       account: "Account 2",
       username: "@usertwo",
       content: "Sed diam nonummy nibh euismod tincidunt ut laoreet dolore.",
-     
+
       time: "10:00 AM",
       date: "Mar 15, 2022"
     },
@@ -52,6 +54,21 @@ const ShareInSocial = () => {
   const toggleSidebar = () => {
     setSidebarOpen(!sidebarOpen);
   };
+  const handleShare = () => {
+    console.log('Share button clicked');  // Check if this logs in the console
+    const shareText = `I just completed Puzzle game! Check it out!`;
+    if (navigator.share) {
+      navigator.share({
+        title: 'Check out this post!',
+        text: shareText,
+        url: window.location.href,
+      })
+        .then(() => console.log('Successfully shared'))
+        .catch((error) => console.log('Error sharing', error));
+    } else {
+      alert('Sharing is not supported on this browser. Copy the link to share: ' + window.location.href);
+    }
+  };
 
   return (
     <div className={`flex p-4 ${sidebarOpen ? 'w-4/6' : 'w-3/6'} transition-all duration-300`}>
@@ -73,19 +90,14 @@ const ShareInSocial = () => {
               <div key={post.id} className="post-card bg-white border border-cyan-600 p-4 mb-4 rounded-lg shadow-md border">
 
                 <div className="flex items-center mb-2">
-                  <div className="rounded-full bg-gray-300 w-10 h-10 mr-2"></div>
+                <div className="rounded-full bg-gray-300 w-10 h-10 mr-2"><img src={post.img} alt="" className='rounded-full'/></div>
                   <div>
                     <h4 className="font-bold">{post.account}</h4>
                     <p className="text-sm text-gray-600">{post.username}</p>
                   </div>
                 </div>
 
-
-                <p className="text-lg mb-2">{post.content}</p>
-
-
-
-
+                <video src={post.video}></video>
                 <div className="text-sm text-gray-500 mt-2">
                   <span>{post.time}</span> • <span>{post.date}</span>
                 </div>
@@ -95,9 +107,10 @@ const ShareInSocial = () => {
                   <button className="flex items-center text-red-500 hover:text-red-700">
                     <AiOutlineHeart className="mr-1" /> Love
                   </button>
-                  <button className="flex items-center text-blue-500 hover:text-blue-700">
+                  <button className="flex items-center text-blue-500 hover:text-blue-700" onClick={handleShare}>
                     <AiOutlineShareAlt className="mr-1" /> Share
                   </button>
+
                 </div>
               </div>
             ))}

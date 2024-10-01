@@ -1,5 +1,45 @@
 [
   {
+    "loc_rowid": 1777,
+    "star_name": "Carina Nebula",
+    "hip_name": "NGC 3372",
+    "rastr": "10h45m08.5s",
+    "ra": 161.286,
+    "decstr": "-59d52m04s",
+    "dec": -59.8678,
+    "st_dist": 8500,
+    "st_disterr1": 500,
+    "st_disterr2": -500,
+    "st_vmag": 1.0,
+    "st_vmagerr": 0.02,
+    "st_bmv": 0.32,
+    "st_bmverr": 0.03,
+    "img": "https://science.nasa.gov/wp-content/uploads/2023/09/main_image_star-forming_region_carina_nircam_final-5mb.jpg?w=1536&format=webp",
+    "sound":"https://www.nasa.gov/wp-content/uploads/2024/05/wasp-notes-aug-3.wav",
+    "video":""
+}
+,
+{
+    "loc_rowid": 2777,
+    "star_name": "Messier 87",
+    "hip_name": "NGC 4486",
+    "rastr": "12h30m49.42338s",
+    "ra": 187.706,
+    "decstr": "+12d23m28.0439s",
+    "dec": 12.3911,
+    "st_dist": 53500000,
+    "st_disterr1": 1600000,
+    "st_disterr2": -1600000,
+    "st_vmag": 8.6,
+    "st_vmagerr": 0.02,
+    "st_bmv": 0.32,
+    "st_bmverr": 0.03,
+    "img": "https://science.nasa.gov/wp-content/uploads/2023/04/m87-full_jpg-jpg.webp?w=1536&format=webp",
+    "sound":"",
+    "video":""
+}
+,
+  {
     "loc_rowid": 1,
     "star_name": "HIP 171",
     "hip_name": "HIP 171",

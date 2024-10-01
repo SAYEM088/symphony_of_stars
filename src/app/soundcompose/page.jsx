@@ -216,7 +216,7 @@ const SoundComposer = () => {
 
                                         <div className="flex flex-row justify-between items-end ms-10 gap-4 my-4">
                                             <div className="flex items-center gap-2">
-                                                <span className="text-white text-xl">Arohi</span>
+                                                <span className="text-white text-xl">Scailing</span>
                                                 <input
                                                     type="range"
                                                     min="0"
@@ -231,7 +231,7 @@ const SoundComposer = () => {
                                                 />
                                             </div>
                                             <div className="flex items-center  gap-2">
-                                                <span className="text-white text-xl">oborohi</span>
+                                                <span className="text-white text-xl">Volume</span>
                                                 <input
                                                     type="range"
                                                     min="0"
