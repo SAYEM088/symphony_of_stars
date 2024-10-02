@@ -3,8 +3,8 @@ import React from 'react';
 
 const page = () => {
     return (
-        <div>
-            <VideoCreation></VideoCreation>
+        <div >
+            <VideoCreation ></VideoCreation>
         </div>
     );
 };

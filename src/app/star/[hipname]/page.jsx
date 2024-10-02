@@ -85,7 +85,7 @@ const StarPage = () => {
                       Your browser does not support the video tag.
                     </video>
                   ) : (
-                    <button className="h-72 w-80 bg-gradient-to-r from-pink-300 to-sky-300  rounded-lg"> <a href="/video"> Lets Make Video with your sound</a></button>
+                    <button className="h-72 w-80 bg-gradient-to-r from-pink-300 to-sky-300  rounded-lg"> <a href="/video" className="text-2xl "> Let's Make <br /> Video with your sound</a></button>
                   )}
 
 
@@ -157,7 +157,7 @@ const StarPage = () => {
                     alt="Image 1"
                     className="w-full rounded-lg object-fill h-5/6 shadow-lg "
                   />
-                  <button className="px-4 w-full  text-xl py-1 text-violet-950  bg-gradient-to-r from-red-600 to-cyan-400 rounded-md mt-1"><a href="/">match</a></button>
+                  <button className="px-4 w-full  text-xl py-1 text-violet-950  bg-gradient-to-r from-teal-600 to-green-400 rounded-md mt-1"><a href="/">match</a></button>
                 </div>
               </div>
             </div>

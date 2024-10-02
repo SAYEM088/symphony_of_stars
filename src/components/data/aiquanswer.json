@@ -11,8 +11,9 @@
     },
     {
       "id": 3,
-      "question": "JWST observe universe",
-      "answer": "JWST observes the universe primarily in infrared wavelengths, which allows it to detect objects too faint, distant, or cool to be observed in visible light."
+      "question":"Give me five common star or galaxy name",
+      "answer": "List Of five common star name: Carina Nebula , HIP 171 , HD 142 , HIP 746, HIP 2021"
+
     },
     {
       "id": 4,
@@ -26,7 +27,7 @@
     },
     {
       "id": 6,
-      "question": "Galaxy",
+      "question": "",
       "answer": "A galaxy is a large system of stars, gas, dust, and dark matter bound together by gravity, containing millions to billions of stars."
     },
     {
@@ -41,7 +42,7 @@
     },
     {
       "id": 9,
-      "question": "Infrared observations by JWST",
+      "question": "Infrared observations bsy JWST",
       "answer": "JWST's infrared observations allow scientists to see through cosmic dust clouds, revealing star-forming regions and early stages of galaxy formation."
     },
     {
@@ -50,9 +51,11 @@
       "answer": "JWST will study the atmospheres of exoplanets, searching for signs of water, methane, carbon dioxide, and other indicators of habitability."
     },
     {
-      "id": 11,
-      "question": "Distant galaxies observed by JWST",
-      "answer": "JWST is capable of observing some of the most distant galaxies, formed only a few hundred million years after the Big Bang."
+     "id": 12,
+      "question":"Give me five common star or galaxy name",
+      "answer": "List Of five common star name: Carina Nebula , HIP 171 , HD 142 , HIP 746, HIP 2021"
     }
+    
+
   ]
   
