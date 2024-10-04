@@ -248,8 +248,8 @@ const SoundComposer = () => {
                                         </div>
 
                                         <div className="flex justify-center">
-                                            <button className='bg-gradient-to-r from-orange-400 to-red-600 p-3 m-2 border-2 border-white rounded-full'>play</button>
-                                            <button className='bg-gradient-to-r from-orange-400 to-red-600 p-3 m-2  border-2 border-white rounded-full'>restart</button>
+                                            <button className='bg-gradient-to-r from-teal-400 to-green-600 p-3 m-2 border-2 border-white text-2xl rounded-full'>play</button>
+                                            <button className='bg-gradient-to-r from-orange-400 to-red-600 p-3 m-2  border-2 border-white text-2xl rounded-full'>restart</button>
                                         </div>
                                     </div>
                                     <div className="relative">
@@ -280,7 +280,7 @@ const SoundComposer = () => {
                             </button>
                             <button className='bg-gradient-to-r from-pink-500 to-orange-500 border-2 border-white text-xl rounded-lg p-3' onClick={() => setIsChangeKeySoundModalOpen(true)} >Change Key Sound</button>
                         </div>
-                        <div className="grid grid-cols-1 gap-2 text-white  text-xl bg-red-300">
+                        <div className="grid grid-cols-1 gap-2 text-white  text-xl bg-red-100">
                             {/* all of the key('f', 'd', 's', 'a', 'w', 'e', 'r','j', 'k', 'l', ';', 'u', 'i', 'o',' ', 'y') will play sound when it press */}
                             <div className="grid grid-cols-7 gap-2 ">
                                 {['f', 'd', 's', 'a', 'w', 'e', 'r'].map((key) => (
@@ -298,7 +298,7 @@ const SoundComposer = () => {
 
                             <div className="grid grid-cols-7 gap-2">
                                 {['j', 'k', 'l', ';', 'u', 'i', 'o'].map((key) => (
-                                    <div className="border-2 border-white p-4 text-center relative" key={key}>
+                                    <div className="border-2 border-white bg-teal-500 p-4 text-center relative" key={key}>
                                         <motion.div
                                             className="absolute bottom-0 left-0 w-full bg-gradient-to-r from-orange-500 to-green-400"
                                             animate={{ height: `${keyFills[key] || 0}%` }}
@@ -312,7 +312,7 @@ const SoundComposer = () => {
 
                             <div className="grid grid-cols-2 gap-2">
                                 {[' ', 'y'].map((key) => (
-                                    <div className="border-2 border-white p-4 text-center relative" key={key === ' ' ? 'space' : key}>
+                                    <div className="border-2 border-white bg-cyan-500 p-4 text-center relative" key={key === ' ' ? 'space' : key}>
                                         <motion.div
                                             className="absolute bottom-0 left-0 w-full bg-gradient-to-r from-teal-500 to-red-400"
                                             animate={{ height: `${keyFills[key === ' ' ? 'space' : key] || 0}%` }}

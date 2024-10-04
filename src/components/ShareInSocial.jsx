@@ -5,46 +5,61 @@ import { MdOutlineOpenInFull } from "react-icons/md";
 import ProfileCard from './ProfileCard';
 const ShareInSocial = () => {
 
-  const mockPosts = [
+  const mockPosts = [{
+    id: 3,
+    account: "Sabrina",
+    username: "@rina22",
+    video:"/1stsharefeed/video3.mp4",
+    time: "10:13 AM",
+    date: "Sep 26, 2024",
+    love: "3",
+    share: "1"
+},
     {
-      id: 1,
-      img:"/avater/farhana.jpg",
-      account: "Ms.Israt",
-      username: "@israt128",
-      video:"/1stsharefeed/video2.mp4",
-      content: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit.",
-      time: "10:48 PM",
-      date: "Sep 21, 2024"
-      
+        id: 1,
+        img:"/avater/farhana.jpg",
+        account: "Ms.Israt",
+        username: "@israt128",
+        video:"/1stsharefeed/video2.mp4",
+        content: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit.",
+        time: "10:48 PM",
+        date: "Sep 21, 2024",
+        love: "5",
+        share: "2"
     },
     {
-      id: 2,
-      img:"/formal.jpg",
-      account: "Mr Sam",
-      username: "@sam880",
-      video:"/1stsharefeed/video1.mp4",
-      content: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit.",
-      time: "9:30 PM",
-      date: "Sep 15, 2024"
+        id: 2,
+        img:"/formal.jpg",
+        account: "Mr Sam",
+        username: "@sam880",
+        video:"/1stsharefeed/video1.mp4",
+        content: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit.",
+        time: "9:32 PM",
+        date: "Sep 15, 2024",
+        love: "2",
+        share: "1"
     },
     {
-      id: 3,
-      account: "Account 1",
-      username: "@userone",
-      content: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit.",
-      time: "9:30 PM",
-      date: "Feb 5, 2022"
+        id: 3,
+        account: "Sabrina",
+        username: "@rina22",
+        video:"/1stsharefeed/video3.mp4",
+        time: "10:13 AM",
+        date: "Sep 26, 2024",
+        love: "3",
+        share: "1"
     },
     {
-      id: 4,
-      account: "Account 2",
-      username: "@usertwo",
-      content: "Sed diam nonummy nibh euismod tincidunt ut laoreet dolore.",
-      time: "10:00 AM",
-      date: "Mar 15, 2022"
+        id: 4,
+        account: "Account 2",
+        username: "@usertwo",
+        content: "Sed diam nonummy nibh euismod tincidunt ut laoreet dolore.",
+        time: "10:00 AM",
+        date: "Mar 15, 2022",
+        love: "0",
+        share: "0"
     }
-  ];
-
+];
   const [posts, setPosts] = useState([]);
   const [sidebarOpen, setSidebarOpen] = useState(true);
 
@@ -107,10 +122,12 @@ const ShareInSocial = () => {
 
                 <div className="flex justify-between items-center mt-3">
                   <button className="flex items-center  text-red-600 hover:text-red-700">
-                    <AiOutlineHeart className="mr-1" /> Love
+                  
+                    <AiOutlineHeart size={20} className="mt-1 mx-1 " /> <span className='text-xl'>{post.love || ' '}</span>
+
                   </button>
                   <button className="flex items-center text-blue-500 hover:text-blue-700" onClick={handleShare}>
-                    <AiOutlineShareAlt className="mr-1" /> Share
+                    <AiOutlineShareAlt size={20} className="mt-1 mx-1 "  /> <span className='text-xl'>{post.share || ' '}</span>
                   </button>
 
                 </div>

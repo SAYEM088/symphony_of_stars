@@ -6,34 +6,53 @@ import { IoMdStarHalf } from "react-icons/io";
 import { GoShareAndroid } from "react-icons/go";
 import { FaArrowUpWideShort } from "react-icons/fa6";
 import { FcLike } from "react-icons/fc";
+import { FcInvite } from "react-icons/fc";
 import { AiOutlineHeart, AiOutlineShareAlt } from 'react-icons/ai';
 const SocialFeed = () => {
     const mockPosts = [
         {
+            id: 3,
+            account: "Sabrina",
+            username: "@rina22",
+            video:"/1stsharefeed/video3.mp4",
+            time: "10:13 AM",
+            date: "Sep 26, 2024",
+            love: "3",
+            share: "1"
+        },
+        {
             id: 1,
-            img:"/formal.jpg",
-            account: "Mr Sam",
-            username: "@sam880",
+            img:"/avater/farhana.jpg",
+            account: "Ms.Israt",
+            username: "@israt128",
+            video:"/1stsharefeed/video2.mp4",
             content: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit.",
-            time: "9:30 PM",
-            date: "Feb 5, 2022"
+            time: "10:48 PM",
+            date: "Sep 21, 2024",
+            love: "5.6k",
+            share: "2.4k"
         },
         {
             id: 2,
-            account: "Account 2",
-            username: "@usertwo",
-            content: "Sed diam nonummy nibh euismod tincidunt ut laoreet dolore.",
-
-            time: "10:00 AM",
-            date: "Mar 15, 2022"
+            img:"/formal.jpg",
+            account: "Mr Sam",
+            username: "@sam880",
+            video:"/1stsharefeed/video1.mp4",
+            content: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit.",
+            time: "9:32 PM",
+            date: "Sep 15, 2024",
+            love: "2.3k",
+            share: "1.8k"
         },
         {
             id: 3,
-            account: "Account 1",
-            username: "@userone",
-            content: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit.",
-            time: "9:30 PM",
-            date: "Feb 5, 2022"
+            account: "Sabrina",
+            username: "@rina22",
+            video:"/1stsharefeed/video3.mp4",
+            time: "10:13 AM",
+            date: "Sep 26, 2024",
+            love: "3.1k",
+            share: "1.1k"
         },
         {
             id: 4,
@@ -41,9 +60,12 @@ const SocialFeed = () => {
             username: "@usertwo",
             content: "Sed diam nonummy nibh euismod tincidunt ut laoreet dolore.",
             time: "10:00 AM",
-            date: "Mar 15, 2022"
+            date: "Mar 15, 2022",
+            love: "0",
+            share: "0"
         }
     ];
+    
     const [posts, setPosts] = useState([]);
     const [sidebarOpen, setSidebarOpen] = useState(true);
 
@@ -51,7 +73,21 @@ const SocialFeed = () => {
 
         setPosts(mockPosts);
     }, []);
-
+    const handleShare = () => {
+        console.log('Share button clicked');  // Check if this logs in the console
+        const shareText = `I just completed Puzzle game! Check it out!`;
+        if (navigator.share) {
+          navigator.share({
+            title: 'Check out this post!',
+            text: shareText,
+            url: window.location.href,
+          })
+            .then(() => console.log('Successfully shared'))
+            .catch((error) => console.log('Error sharing', error));
+        } else {
+          alert('Sharing is not supported on this browser. Copy the link to share: ' + window.location.href);
+        }
+      };
     return (
 
         <div className="grid grid-cols-8 h-screen pt-20">
@@ -100,30 +136,36 @@ const SocialFeed = () => {
 
                 <div className="space-y-4">
                     <div className="bg-white p-4 rounded shadow">
-                        {posts.map(post => (
-                            <div key={post.id} className="post-card bg-white border border-cyan-600 p-4 mb-4 rounded-lg shadow-md border">
-                                <div className="flex items-center mb-2">
-                                    <div className="rounded-full bg-gray-300 w-10 h-10 mr-2"><img src={post.img} alt="" className='rounded-full'/></div>
-                                    <div>
-                                        <h4 className="font-bold">{post.account}</h4>
-                                        <p className="text-sm text-gray-600">{post.username}</p>
-                                    </div>
-                                </div>
-                                <p className="text-lg mb-2">{post.content}</p>
-                                <div className="text-sm text-gray-500 mt-2">
-                                    <span>{post.time}</span> • <span>{post.date}</span>
-                                </div>
-                                <div className="flex justify-between items-center mt-3">
-                                    <button className="flex items-center text-red-500 hover:text-red-700">
-                                        <AiOutlineHeart className="mr-1" /> Love
-                                    </button>
-                                    <button className="flex items-center text-blue-500 hover:text-blue-700" >
-                                        <AiOutlineShareAlt className="mr-1" /> Share
-                                    </button>
+                    {posts.map(post => (
+              <div key={post.id} className="post-card bg-gradient-to-r from-blue-100 to-rose-100 border border-cyan-800 p-4 mb-3 rounded-xl shadow-md border">
 
-                                </div>
-                            </div>
-                        ))}
+                <div className="flex items-center mb-2">
+                <div className="rounded-full bg-gray-300 w-10 h-10 mr-2"><img src={post.img} alt="" className='rounded-full'/></div>
+                  <div>
+                    <h4 className="font-bold">{post.account}</h4>
+                    <p className="text-sm text-gray-600">{post.username}</p>
+                  </div>
+                </div>
+
+                <video controls className='rounded-lg mt-3' src={post.video}></video>
+                <div className="text-sm text-gray-800 mt-2">
+                  <span>{post.time}</span> • <span>{post.date}</span>
+                </div>
+
+
+                <div className="flex justify-between items-center mt-3">
+                  <button className="flex items-center  text-red-600 hover:text-red-700">
+                  
+                    <AiOutlineHeart size={20} className="mt-1 mx-1 " /> <span className='text-xl'>{post.love || ' '}</span>
+
+                  </button>
+                  <button className="flex items-center text-blue-500 hover:text-blue-700" onClick={handleShare}>
+                    <FcInvite  size={20} className="mt-1 mx-1 text-blue-700 "  /> <span className='text-xl'>{post.share || ' '}</span>
+                  </button>
+
+                </div>
+              </div>
+            ))}
                     </div>
                     {/* Post 2 */}
                     <div className="bg-white p-4 rounded shadow">

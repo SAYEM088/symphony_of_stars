@@ -170,7 +170,7 @@ const StarPage = () => {
                 </button>
                 <a href="/soundcompose">
                   <button className="px-4 py-1 text-xl p-2 text-pink-200  border-2 border-white bg-gradient-to-r from-cyan-400 to-red-600 rounded-md">
-                    Go to Composer
+                   <a href="/soundcompose"> Go to Composer</a>
                   </button>
                 </a>
               </div>

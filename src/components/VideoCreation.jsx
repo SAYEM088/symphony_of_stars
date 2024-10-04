@@ -65,7 +65,7 @@ const CreateVideo = ({ starData }) => {
       console.log("Preparing to fetch files...");
 
       const audio = await fetchFile(soundFile);
-      const imagePath = starData?.image || "/starinfo/carina.png"; // Fallback image
+      const imagePath = "/backdrop/drawing.png"; //  starData?.image ||
       const image = await fetchFile(imagePath);
 
       console.log("Image and audio fetched successfully");
@@ -134,7 +134,7 @@ const CreateVideo = ({ starData }) => {
         <div>
           <div className="h-72 w-80 bg-gradient-to-r from-pink-300 to-sky-300 rounded-lg flex items-center justify-center text-center">
             <img
-              src={starData?.image || "/starinfo/carina.png"}
+              src={starData?.image || "/backdrop/drawing.png"}
               alt="Star Data"
               className="w-full h-full object-cover rounded-lg"
             />

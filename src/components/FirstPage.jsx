@@ -29,7 +29,7 @@ const Model = ({ onInteract }) => {
 
   return (
     <primitive
-    position={[0, -2, 0]}
+      position={[0, -2, 0]}
       object={scene}
       scale={scale}
       ref={modelRef}
@@ -130,7 +130,7 @@ const FirstPage = () => {
         )}
 
         <div className=" absolute left-15 top-24  z-20 ">
-        <ShareInSocial></ShareInSocial>
+          <ShareInSocial></ShareInSocial>
         </div>
 
         <div className={`absolute right-0 bottom-4 z-20 flex flex-col gap-2 ${isExpanded ? 'h-auto' : 'h-20'} transition-all`}>
@@ -168,7 +168,7 @@ const FirstPage = () => {
                       placeholder="Type your message"
                     />
                     <button onClick={startRecognition} className="p-2 bg-gradient-to-r from-cyan-200  to-orange-300 text-red-800  rounded-full hover:bg-blue-700">
-                    <FaMicrophoneAlt  className="text-xl" />
+                      <FaMicrophoneAlt className="text-xl" />
                     </button>
                     <button onClick={handleSendMessage} className="p-2 bg-gradient-to-r from-cyan-200  to-orange-300 text-red-800  rounded-full hover:bg-blue-700">
                       <LuSend className="text-xl" />
@@ -209,6 +209,7 @@ const FirstPage = () => {
             height: 190px;
             width: 400px;
           }
+        
         `}</style>
       </div>
     </>
